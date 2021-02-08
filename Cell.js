@@ -1,4 +1,4 @@
-import { difference, randEl, randInt } from "./utils.js";
+import { difference, randInt } from "./utils.js";
 import { Body } from "./Body.js";
 
 export const cells = [];
@@ -15,9 +15,7 @@ export class Cell extends Body {
         this.maxForce = randInt(5, 40);
     }
 
-    update(foods, deltaTime) {
-        if (foods.length === 0) return;
-        const food = randEl(foods);
+    update(food, deltaTime) {
         const force = difference(this.pos, food.pos);
         this.applyForce(force);
         this.updatePos(deltaTime);

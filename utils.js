@@ -2,12 +2,6 @@ export function randInt(a, b) {
     return a + Math.floor((b - a) * Math.random());
 }
 
-export function randEl(list) {
-    if (list.length === 0) return null;
-    const index = randInt(0, list.length);
-    return list[index];
-}
-
 export function removeEl(el, list) {
     const index = list.indexOf(el);
     list.splice(index);

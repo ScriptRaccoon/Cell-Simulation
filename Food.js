@@ -2,14 +2,14 @@ import { Body } from "./Body.js";
 import { Cell, cellLimit } from "./Cell.js";
 import { removeEl, randInt } from "./utils.js";
 
-export const foods = [];
+export let food = null;
 
 const variation = 50;
 
 export class Food extends Body {
     constructor(x, y) {
         super(x, y);
-        foods.push(this);
+        food = this;
         this.color = "#FF8030";
         this.size = 15;
         this.vel = {
@@ -21,10 +21,9 @@ export class Food extends Body {
     update(cells, deltaTime) {
         this.updatePos(deltaTime);
         if (cells.some((cell) => this.touches(cell))) {
-            removeEl(this, foods);
+            new Food();
             if (cells.length <= cellLimit) {
                 new Cell(this.pos.x, this.pos.y);
-                new Food();
             }
         }
     }
