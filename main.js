@@ -1,4 +1,4 @@
-import { clearCanvas, drawText } from "./canvas.js";
+import { clearCanvas } from "./canvas.js";
 import { Timer } from "./Timer.js";
 import { Cell, cells } from "./Cell.js";
 import { food, Food } from "./Food.js";
@@ -17,7 +17,6 @@ timer.update = (deltaTime) => {
     for (const obj of [...cells, food]) {
         obj.draw();
     }
-    drawText(`${cells.length} Zellen`);
 };
 
 timer.start();

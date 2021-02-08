@@ -13,12 +13,3 @@ window.addEventListener("resize", adjustCanvas);
 export function clearCanvas() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
-
-ctx.textAlign = "right";
-ctx.font = "16px Segoe UI";
-
-export function drawText(txt) {
-    ctx.globalAlpha = 0.6;
-    ctx.fillStyle = "white";
-    ctx.fillText(txt, canvas.width - 10, canvas.height - 10);
-}

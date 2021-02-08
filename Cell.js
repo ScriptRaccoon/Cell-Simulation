@@ -16,12 +16,15 @@ export class Cell extends Body {
         this.time = 0;
         this.waveCounter = 50;
         this.maxWave = 170;
+        const cellNumber = cells.length;
+        document.getElementById("info").innerText =
+            cellNumber == 1 ? `${cellNumber} Zelle` : `${cellNumber} Zellen`;
     }
 
     update(food, deltaTime) {
         this.time++;
         if (this.time % this.waveCounter === 0) {
-            if ((this.time % 2) * this.waveCounter === 0) {
+            if (this.time % (2 * this.waveCounter) === 0) {
                 this.applyForce(rotate(this.vel, -Math.PI / 2), this.maxWave);
             } else {
                 this.applyForce(rotate(this.vel, Math.PI / 2), this.maxWave);
