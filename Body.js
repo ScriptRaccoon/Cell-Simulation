@@ -35,8 +35,8 @@ export class Body {
         this.pos.y += this.vel.y * deltaTime;
     }
 
-    applyForce(force) {
-        const limitedForce = limit(force, this.maxForce);
+    applyForce(force, bound = this.maxForce) {
+        const limitedForce = limit(force, bound);
         this.vel.x += limitedForce.x;
         this.vel.y += limitedForce.y;
         this.vel = limit(this.vel, this.maxSpeed);

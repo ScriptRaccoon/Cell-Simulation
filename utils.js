@@ -2,11 +2,6 @@ export function randInt(a, b) {
     return a + Math.floor((b - a) * Math.random());
 }
 
-export function removeEl(el, list) {
-    const index = list.indexOf(el);
-    list.splice(index);
-}
-
 export function distance(posA, posB) {
     return Math.sqrt(Math.pow(posA.x - posB.x, 2) + Math.pow(posA.y - posB.y, 2));
 }
@@ -19,7 +14,7 @@ export function difference(posA, posB) {
     return { x: posB.x - posA.x, y: posB.y - posA.y };
 }
 
-function scale(pos, u) {
+export function scale(pos, u) {
     return { x: pos.x * u, y: pos.y * u };
 }
 
@@ -30,4 +25,11 @@ export function limit(pos, u) {
     } else {
         return scale(pos, u / myNorm);
     }
+}
+
+export function rotate(vector, angle) {
+    return {
+        x: vector.x * Math.cos(angle) - vector.y * Math.sin(angle),
+        y: vector.x * Math.sin(angle) + vector.y * Math.cos(angle),
+    };
 }
