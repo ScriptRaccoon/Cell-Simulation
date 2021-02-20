@@ -20,7 +20,9 @@ export class Food extends Body {
 
     update(cells, deltaTime) {
         this.updatePos(deltaTime);
-        if (cells.some((cell) => this.touches(cell))) {
+        const cell = cells.find((cell) => this.touches(cell));
+        if (cell) {
+            cell.size += 1;
             new Food();
             if (cells.length <= cellLimit) {
                 new Cell(this.pos.x, this.pos.y);
