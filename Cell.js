@@ -1,4 +1,4 @@
-import { difference, scale, rotate, limit, randInt } from "./utils.js";
+import { difference, rotate, randInt } from "./utils.js";
 import { Body } from "./Body.js";
 
 export const cells = [];
@@ -12,10 +12,9 @@ export class Cell extends Body {
         this.alpha = 0.5;
         this.color = "#3080FF";
         this.maxSpeed = randInt(300, 400);
-        this.maxForce = randInt(15, 40);
+        this.maxForce = randInt(20, 40);
         this.time = 0;
-        this.waveCounter = 50;
-        this.maxWave = 170;
+        this.swim = { length: 50, amplitude: Math.PI / 6 };
         const cellNumber = cells.length;
         document.getElementById("info").innerText =
             cellNumber == 1 ? `${cellNumber} Zelle` : `${cellNumber} Zellen`;
@@ -23,15 +22,11 @@ export class Cell extends Body {
 
     update(food, deltaTime) {
         this.time++;
-        if (this.time % this.waveCounter === 0) {
-            if (this.time % (2 * this.waveCounter) === 0) {
-                this.applyForce(rotate(this.vel, -Math.PI / 2), this.maxWave);
-            } else {
-                this.applyForce(rotate(this.vel, Math.PI / 2), this.maxWave);
-            }
-        }
         const force = difference(this.pos, food.pos);
         this.applyForce(force);
+        const swimAngle =
+            this.swim.amplitude * Math.cos((this.time / this.swim.length) * Math.PI);
+        this.applyForce(rotate(this.vel, swimAngle));
         this.updatePos(deltaTime);
     }
 }
