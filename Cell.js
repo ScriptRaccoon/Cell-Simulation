@@ -10,8 +10,8 @@ export class Cell extends Body {
         cells.push(this);
         this.alpha = 0.5;
         this.color = "#3080FF";
-        this.maxSpeed = randInt(300, 400);
-        this.maxForce = randInt(20, 40);
+        this.maxSpeed = randInt(250, 400);
+        this.maxForce = randInt(30, 60);
         this.time = 0;
         this.swim = {
             length: randInt(40, 50),
