@@ -33,6 +33,6 @@ export class Cell extends Body {
 
 function writeCellNumber() {
     const info = document.getElementById("info");
-    info.innerText = `${cells.length} Zelle`;
-    if (cells.length > 1) info.innerText += "n";
+    info.innerText = `${cells.length} cell`;
+    if (cells.length > 1) info.innerText += "s";
 }
