@@ -1,7 +1,7 @@
 import { clearCanvas } from "./canvas.js";
 import { Timer } from "./Timer.js";
-import { Cell, cells } from "./Cell.js";
-import { food, Food } from "./Food.js";
+import { Cell, cells } from "./objects/Cell.js";
+import { food, Food } from "./objects/Food.js";
 
 new Cell();
 new Food();

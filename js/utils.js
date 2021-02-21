@@ -18,7 +18,7 @@ export function difference(posA, posB) {
     return { x: posB.x - posA.x, y: posB.y - posA.y };
 }
 
-export function scale(pos, u) {
+function scale(pos, u) {
     return { x: pos.x * u, y: pos.y * u };
 }
 

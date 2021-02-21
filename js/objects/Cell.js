@@ -1,4 +1,4 @@
-import { difference, rotate, rand, randInt } from "./utils.js";
+import { difference, rotate, rand, randInt } from "../utils.js";
 import { Body } from "./Body.js";
 
 export const cells = [];

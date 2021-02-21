@@ -1,6 +1,6 @@
 import { Body } from "./Body.js";
 import { Cell, cellLimit } from "./Cell.js";
-import { randInt } from "./utils.js";
+import { randInt } from "../utils.js";
 
 export let food = null;
 

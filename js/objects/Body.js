@@ -1,5 +1,5 @@
-import { canvas, ctx } from "./canvas.js";
-import { randInt, distance, limit } from "./utils.js";
+import { canvas, ctx } from "../canvas.js";
+import { randInt, distance, limit } from "../utils.js";
 
 const threshold = 100;
 
