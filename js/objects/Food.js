@@ -4,8 +4,6 @@ import { randInt } from "../utils.js";
 
 export let food = null;
 
-const variation = 50;
-
 export class Food extends Body {
     constructor(x, y) {
         super(x, y);
@@ -13,8 +11,8 @@ export class Food extends Body {
         this.color = "#FF8030";
         this.size = 15;
         this.vel = {
-            x: randInt(-variation, variation),
-            y: randInt(-variation, variation),
+            x: randInt(-50, 50),
+            y: randInt(-50, 50),
         };
     }
 
@@ -24,7 +22,7 @@ export class Food extends Body {
         if (cell) {
             cell.size += 1;
             new Food();
-            if (cells.length <= cellLimit) {
+            if (cells.length < cellLimit) {
                 new Cell(this.pos.x, this.pos.y);
             }
         }
