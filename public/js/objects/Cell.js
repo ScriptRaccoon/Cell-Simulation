@@ -34,6 +34,7 @@ export class Cell extends Body {
 
     reproduce() {
         this.size += 1;
+        this.maxSpeed /= 1.2;
         if (cells.length < maximalCellNumber) {
             new Cell(this.pos.x, this.pos.y);
         }
