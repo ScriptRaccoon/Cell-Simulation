@@ -1,8 +1,10 @@
 import { difference, rotate, rand, randInt } from "../utils.js";
 import { Body } from "./Body.js";
 
+const cellInfo = document.getElementById("cellInfo");
+
 export const cells = [];
-export const cellLimit = 1000;
+const maximalCellNumber = 1000;
 
 export class Cell extends Body {
     constructor(x, y) {
@@ -10,29 +12,37 @@ export class Cell extends Body {
         cells.push(this);
         this.alpha = 0.5;
         this.color = "#3080FF";
-        this.maxSpeed = randInt(250, 400);
+        this.maxSpeed = randInt(200, 350);
         this.maxForce = randInt(30, 60);
         this.time = 0;
-        this.swim = {
-            length: randInt(40, 50),
-            amplitude: rand(Math.PI / 10, Math.PI / 8),
-        };
+        this.swimLength = randInt(40, 50);
+        this.swimAmplitude = rand(Math.PI / 10, Math.PI / 8);
         writeCellNumber();
     }
 
     update(food, deltaTime) {
         this.time++;
-        const force = difference(this.pos, food.pos);
-        this.applyForce(force);
+        const foodForce = difference(this.pos, food.pos);
+        this.applyForce(foodForce);
         const swimAngle =
-            this.swim.amplitude * Math.cos((this.time / this.swim.length) * Math.PI);
-        this.applyForce(rotate(this.vel, swimAngle));
+            this.swimAmplitude *
+            Math.cos((this.time / this.swimLength) * Math.PI);
+        const swimForce = rotate(this.vel, swimAngle);
+        this.applyForce(swimForce);
         this.updatePos(deltaTime);
+    }
+
+    reproduce() {
+        this.size += 1;
+        if (cells.length < maximalCellNumber) {
+            new Cell(this.pos.x, this.pos.y);
+        }
     }
 }
 
 function writeCellNumber() {
-    const info = document.getElementById("info");
-    info.innerText = `${cells.length} cell`;
-    if (cells.length > 1) info.innerText += "s";
+    cellInfo.innerText =
+        cells.length + (cells.length > 1 ? " cells" : " cell");
 }
+
+new Cell();

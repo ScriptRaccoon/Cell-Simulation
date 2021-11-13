@@ -1,4 +1,4 @@
-export class Timer {
+class Timer {
     constructor(deltaTime) {
         let accumulatedTime = 0;
         let lastTime = null;
@@ -25,3 +25,5 @@ export class Timer {
         requestAnimationFrame(this.loop);
     }
 }
+
+export const timer = new Timer(1 / 60);
