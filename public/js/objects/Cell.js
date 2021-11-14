@@ -1,4 +1,11 @@
-import { difference, rotate, rand, randInt } from "../utils.js";
+import {
+    difference,
+    rotate,
+    rand,
+    scale,
+    randInt,
+    distance,
+} from "../utils.js";
 import { Body } from "./Body.js";
 import { foods } from "./Food.js";
 import { poisons } from "./Poison.js";
@@ -21,6 +28,8 @@ export class Cell extends Body {
         this.swimAmplitude = rand(Math.PI / 10, Math.PI / 8);
         this.growDuration = 0.3;
         this.growSize = 10;
+        this.poisonAvoidance = 100;
+        this.priority = null;
     }
 
     remove() {
@@ -29,23 +38,37 @@ export class Cell extends Body {
     }
 
     update(deltaTime) {
+        this.priority = null;
         this.time++;
         this.growUp(deltaTime);
-        this.targetFood();
         this.avoidPoison();
+        this.targetFood();
         this.swim();
         this.updatePos(deltaTime);
     }
 
     targetFood() {
-        if (foods[0]) {
+        if (foods[0] && !this.priority) {
             const foodForce = difference(this.pos, foods[0].pos);
             this.applyForce(foodForce);
         }
     }
 
     avoidPoison() {
-        // TODO
+        for (const poison of poisons) {
+            if (
+                distance(this.pos, poison.pos) <=
+                2 * (this.size + poison.size)
+            ) {
+                this.priority = "poison";
+                const poisonForce = difference(this.pos, poison.pos);
+                const antiForce = scale(
+                    poisonForce,
+                    -this.poisonAvoidance
+                );
+                this.applyForce(antiForce);
+            }
+        }
     }
 
     swim() {
