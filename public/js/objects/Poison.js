@@ -4,7 +4,7 @@ import { cells } from "./Cell.js";
 
 export let poisons = [];
 
-class Poison extends Body {
+export class Poison extends Body {
     constructor(x, y) {
         super(x, y);
         poisons.push(this);
@@ -15,6 +15,10 @@ class Poison extends Body {
         };
         this.growDuration = 0.3;
         this.growSize = 20;
+    }
+
+    static eraseAll() {
+        poisons = [];
     }
 
     update(deltaTime) {
@@ -34,5 +38,3 @@ class Poison extends Body {
         }
     }
 }
-
-setInterval(() => new Poison(), 5000);

@@ -3,6 +3,7 @@ import { timer } from "./Timer.js";
 import { cells } from "./objects/Cell.js";
 import { foods } from "./objects/Food.js";
 import { poisons } from "./objects/Poison.js";
+import { enableControls } from "./controls.js";
 
 timer.update = (deltaTime) => {
     clearCanvas();
@@ -14,4 +15,7 @@ timer.update = (deltaTime) => {
     }
 };
 
-document.addEventListener("DOMContentLoaded", () => timer.start());
+document.addEventListener("DOMContentLoaded", () => {
+    timer.start();
+    enableControls();
+});
