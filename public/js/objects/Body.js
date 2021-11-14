@@ -18,19 +18,19 @@ export class Body {
         this.time = 0;
         this.growDuration = 1;
         this.growSize = 10;
+        this.isGrownUp = false;
     }
 
     touches(body) {
-        return distance(this.pos, body.pos) < this.size + body.size;
+        return distance(this.pos, body.pos) <= this.size + body.size;
     }
 
-    grow(deltaTime) {
+    growUp(deltaTime) {
         if (this.time <= this.growDuration / deltaTime) {
-            this.size =
-                Math.pow(
-                    this.time / (this.growDuration / deltaTime),
-                    3
-                ) * this.growSize;
+            const rate = this.time / (this.growDuration / deltaTime);
+            this.size = Math.pow(rate, 3) * this.growSize;
+        } else {
+            this.isGrownUp = true;
         }
     }
 

@@ -12,24 +12,32 @@ class Food extends Body {
             x: randInt(-50, 50),
             y: randInt(-50, 50),
         };
-        this.delay = 300;
-        this.time = 0;
-        this.growDuration = 0.5;
+        this.reproductionDelay = 300;
+        this.growDuration = 0.8;
         this.growSize = 15;
+    }
+
+    remove() {
+        foods = foods.filter((f) => f != this);
     }
 
     update(cells, deltaTime) {
         this.time++;
-        this.grow(deltaTime);
+        this.growUp(deltaTime);
         this.updatePos(deltaTime);
-        if (this.size < this.growSize) return;
-        const cell = cells.find((cell) => this.touches(cell));
-        if (cell) {
-            foods = foods.filter((f) => f != this);
-            setTimeout(() => {
-                new Food();
-            }, this.delay);
-            cell.reproduce();
+        this.getEatenBy(cells);
+    }
+
+    getEatenBy(cells) {
+        if (this.isGrownUp) {
+            const cell = cells.find((cell) => this.touches(cell));
+            if (cell) {
+                this.remove();
+                cell.reproduce();
+                setTimeout(() => {
+                    new Food();
+                }, this.reproductionDelay);
+            }
         }
     }
 }
