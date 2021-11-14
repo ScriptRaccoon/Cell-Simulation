@@ -20,10 +20,12 @@ export class Cell extends Body {
         writeCellNumber();
     }
 
-    update(food, deltaTime) {
+    update(foods, deltaTime) {
         this.time++;
-        const foodForce = difference(this.pos, food.pos);
-        this.applyForce(foodForce);
+        if (foods.length == 1) {
+            const foodForce = difference(this.pos, foods[0].pos);
+            this.applyForce(foodForce);
+        }
         const swimAngle =
             this.swimAmplitude *
             Math.cos((this.time / this.swimLength) * Math.PI);
@@ -36,7 +38,8 @@ export class Cell extends Body {
         this.size += 1;
         this.maxSpeed /= 1.2;
         if (cells.length < maximalCellNumber) {
-            new Cell(this.pos.x, this.pos.y);
+            const newCell = new Cell(this.pos.x, this.pos.y);
+            newCell.vel = this.vel;
         }
     }
 }

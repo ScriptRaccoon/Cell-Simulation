@@ -1,15 +1,17 @@
 import { clearCanvas } from "./canvas.js";
 import { timer } from "./Timer.js";
 import { cells } from "./objects/Cell.js";
-import { food } from "./objects/Food.js";
+import { foods } from "./objects/Food.js";
 
 timer.update = (deltaTime) => {
     clearCanvas();
-    food.update(cells, deltaTime);
-    for (const cell of cells) {
-        cell.update(food, deltaTime);
+    for (const food of foods) {
+        food.update(cells, deltaTime);
     }
-    for (const obj of [...cells, food]) {
+    for (const cell of cells) {
+        cell.update(foods, deltaTime);
+    }
+    for (const obj of [...cells, ...foods]) {
         obj.draw();
     }
 };
