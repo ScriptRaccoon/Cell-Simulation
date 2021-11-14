@@ -15,10 +15,23 @@ export class Body {
         this.color = "#00FF00";
         this.maxForce = 0;
         this.maxSpeed = 0;
+        this.time = 0;
+        this.growDuration = 1;
+        this.growSize = 10;
     }
 
     touches(body) {
         return distance(this.pos, body.pos) < this.size + body.size;
+    }
+
+    grow(deltaTime) {
+        if (this.time <= this.growDuration / deltaTime) {
+            this.size =
+                Math.pow(
+                    this.time / (this.growDuration / deltaTime),
+                    3
+                ) * this.growSize;
+        }
     }
 
     draw() {

@@ -17,11 +17,14 @@ export class Cell extends Body {
         this.time = 0;
         this.swimLength = randInt(40, 50);
         this.swimAmplitude = rand(Math.PI / 10, Math.PI / 8);
+        this.growDuration = 0.3;
+        this.growSize = 10;
         writeCellNumber();
     }
 
     update(foods, deltaTime) {
         this.time++;
+        this.grow(deltaTime);
         if (foods.length == 1) {
             const foodForce = difference(this.pos, foods[0].pos);
             this.applyForce(foodForce);
@@ -36,7 +39,7 @@ export class Cell extends Body {
 
     reproduce() {
         this.size += 1;
-        this.maxSpeed /= 1.2;
+        this.maxSpeed /= 1.1;
         if (cells.length < maximalCellNumber) {
             const newCell = new Cell(this.pos.x, this.pos.y);
             newCell.vel = this.vel;

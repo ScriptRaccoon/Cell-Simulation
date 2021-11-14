@@ -8,16 +8,21 @@ class Food extends Body {
         super(x, y);
         foods.push(this);
         this.color = "#FF8030";
-        this.size = 15;
         this.vel = {
             x: randInt(-50, 50),
             y: randInt(-50, 50),
         };
-        this.delay = 200;
+        this.delay = 300;
+        this.time = 0;
+        this.growDuration = 0.5;
+        this.growSize = 15;
     }
 
     update(cells, deltaTime) {
+        this.time++;
+        this.grow(deltaTime);
         this.updatePos(deltaTime);
+        if (this.size < this.growSize) return;
         const cell = cells.find((cell) => this.touches(cell));
         if (cell) {
             foods = foods.filter((f) => f != this);
