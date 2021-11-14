@@ -1,5 +1,6 @@
 import { Body } from "./Body.js";
 import { randInt } from "../utils.js";
+import { cells } from "./Cell.js";
 
 export let foods = [];
 
@@ -21,14 +22,14 @@ class Food extends Body {
         foods = foods.filter((f) => f != this);
     }
 
-    update(cells, deltaTime) {
+    update(deltaTime) {
         this.time++;
         this.growUp(deltaTime);
         this.updatePos(deltaTime);
-        this.getEatenBy(cells);
+        this.getEaten();
     }
 
-    getEatenBy(cells) {
+    getEaten() {
         if (this.isGrownUp) {
             const cell = cells.find((cell) => this.touches(cell));
             if (cell) {

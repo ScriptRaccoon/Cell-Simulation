@@ -1,5 +1,7 @@
 import { difference, rotate, rand, randInt } from "../utils.js";
 import { Body } from "./Body.js";
+import { foods } from "./Food.js";
+import { poisons } from "./Poison.js";
 
 const cellInfo = document.getElementById("cellInfo");
 
@@ -21,19 +23,24 @@ export class Cell extends Body {
         this.growSize = 10;
     }
 
-    update(foods, deltaTime) {
+    update(deltaTime) {
         this.time++;
         this.growUp(deltaTime);
-        this.targetFood(foods);
+        this.targetFood();
+        this.avoidPoison();
         this.swim();
         this.updatePos(deltaTime);
     }
 
-    targetFood(foods) {
+    targetFood() {
         if (foods[0]) {
             const foodForce = difference(this.pos, foods[0].pos);
             this.applyForce(foodForce);
         }
+    }
+
+    avoidPoison() {
+        // TODO
     }
 
     swim() {

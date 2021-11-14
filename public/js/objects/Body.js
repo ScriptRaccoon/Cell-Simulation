@@ -9,7 +9,7 @@ export class Body {
             x: x || randInt(threshold, canvas.width - threshold),
             y: y || randInt(threshold, canvas.height - threshold),
         };
-        this.size = 10;
+        this.size = 0;
         this.vel = { x: 0, y: 0 };
         this.alpha = 1;
         this.color = "#00FF00";
