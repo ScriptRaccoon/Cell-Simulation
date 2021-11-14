@@ -17,7 +17,11 @@ export class Poison extends Body {
         this.growSize = 20;
     }
 
-    static eraseAll() {
+    remove() {
+        poisons = poisons.filter((c) => c != this);
+    }
+
+    static removeAll() {
         poisons = [];
     }
 
@@ -26,6 +30,9 @@ export class Poison extends Body {
         this.growUp(deltaTime);
         this.eatCells();
         this.updatePos(deltaTime);
+        if (this.isOutside) {
+            this.remove();
+        }
     }
 
     eatCells() {

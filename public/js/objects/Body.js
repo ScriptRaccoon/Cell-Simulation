@@ -58,4 +58,13 @@ export class Body {
         this.vel.y += limitedForce.y;
         this.vel = limit(this.vel, this.maxSpeed);
     }
+
+    get isOutside() {
+        return (
+            this.pos.x - this.size > canvas.width ||
+            this.pos < -this.size ||
+            this.pos.y - this.size > canvas.height ||
+            this.pos.y < -this.size
+        );
+    }
 }

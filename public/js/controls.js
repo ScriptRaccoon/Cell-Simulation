@@ -15,7 +15,7 @@ export function enableControls() {
         } else {
             poisonLabel.innerText = "Poison off";
             clearInterval(poisonInterval);
-            Poison.eraseAll();
+            Poison.removeAll();
         }
     });
 }
