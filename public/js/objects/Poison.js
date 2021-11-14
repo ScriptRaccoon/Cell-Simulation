@@ -1,5 +1,6 @@
 import { Body } from "./Body.js";
 import { randInt } from "../utils.js";
+import { cells } from "./Cell.js";
 
 export let poisons = [];
 
@@ -19,7 +20,18 @@ class Poison extends Body {
     update(deltaTime) {
         this.time++;
         this.growUp(deltaTime);
+        this.eatCells();
         this.updatePos(deltaTime);
+    }
+
+    eatCells() {
+        if (this.isGrownUp) {
+            const cell = cells.find((cell) => this.touches(cell));
+            if (cell) {
+                this.size += 1;
+                cell.remove();
+            }
+        }
     }
 }
 

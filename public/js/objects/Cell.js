@@ -5,7 +5,7 @@ import { poisons } from "./Poison.js";
 
 const cellInfo = document.getElementById("cellInfo");
 
-export const cells = [];
+export let cells = [];
 const maximalCellNumber = 1000;
 
 export class Cell extends Body {
@@ -21,6 +21,11 @@ export class Cell extends Body {
         this.swimAmplitude = rand(Math.PI / 10, Math.PI / 8);
         this.growDuration = 0.3;
         this.growSize = 10;
+    }
+
+    remove() {
+        cells = cells.filter((c) => c != this);
+        writeCellNumber();
     }
 
     update(deltaTime) {
