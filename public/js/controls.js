@@ -31,9 +31,16 @@ export function enableControls() {
         if (pauseToggler.checked) {
             timer.pause();
             pauseLabel.innerText = "Start";
+            clearInterval(poisonInterval);
         } else {
             timer.start();
             pauseLabel.innerText = "Pause";
+            if (poisonToggler.checked) {
+                poisonInterval = setInterval(
+                    () => new Poison(),
+                    Poison.frequency
+                );
+            }
         }
     });
 }
