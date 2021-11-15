@@ -5,8 +5,10 @@ import {
     scale,
     randInt,
     distance,
+    randEl,
 } from "../utils.js";
 import { Body } from "./Body.js";
+import { Food } from "./Food.js";
 
 const cellInfo = document.getElementById("cellInfo");
 
@@ -19,7 +21,7 @@ export class Cell extends Body {
 
     static writeNumber() {
         cellInfo.innerText =
-            Cell.number + (Cell.number == 1 ? " cells" : " cell");
+            Cell.number + (Cell.number == 1 ? " cell" : " cells");
     }
 
     constructor(x, y) {
@@ -35,6 +37,7 @@ export class Cell extends Body {
         this.prudence = randInt(2, 8);
         this.dieTime = null;
         this.poisoned = false;
+        this.targetedFood = null;
         Cell.writeNumber();
     }
 
@@ -63,9 +66,14 @@ export class Cell extends Body {
     }
 
     targetFood() {
-        const food = Body.objectsOfType.Food[0];
-        if (food) {
-            const foodForce = difference(this.pos, food.pos);
+        if (!this.targetedFood || this.targetedFood.eaten) {
+            this.targetedFood = randEl(Body.objectsOfType.Food);
+        }
+        if (this.targetedFood) {
+            const foodForce = difference(
+                this.pos,
+                this.targetedFood.pos
+            );
             this.applyForce(foodForce);
         }
     }
@@ -95,6 +103,12 @@ export class Cell extends Body {
         if (this.alpha <= 0) {
             this.remove();
             Cell.writeNumber();
+            if (
+                Math.random() < 0.1 &&
+                Food.number < Food.maximalNumber
+            ) {
+                new Food();
+            }
         }
     }
 }

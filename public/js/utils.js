@@ -6,6 +6,10 @@ export function rand(a, b) {
     return a + (b - a) * Math.random();
 }
 
+export function randEl(list) {
+    return list[randInt(0, list.length)];
+}
+
 export function distance(posA, posB) {
     return Math.sqrt(
         Math.pow(posA.x - posB.x, 2) + Math.pow(posA.y - posB.y, 2)

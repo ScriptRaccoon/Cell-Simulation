@@ -2,6 +2,12 @@ import { Body } from "./Body.js";
 import { randInt } from "../utils.js";
 
 export class Food extends Body {
+    static maximalNumber = 3;
+
+    static get number() {
+        return Body.objectsOfType.Food.length;
+    }
+
     constructor(x, y) {
         super(x, y);
         this.color = "#FF8030";
@@ -12,6 +18,7 @@ export class Food extends Body {
         this.reproductionDelay = 300;
         this.growDuration = 0.8;
         this.growSize = 15;
+        this.eaten = false;
     }
 
     applyFeatures(deltaTime) {
@@ -25,10 +32,13 @@ export class Food extends Body {
                 this.touches(cell)
             );
             if (cell) {
+                this.eaten = true;
                 this.remove();
                 cell.reproduce();
                 setTimeout(() => {
-                    new Food();
+                    if (Food.number < Food.maximalNumber) {
+                        new Food();
+                    }
                 }, this.reproductionDelay);
             }
         }
