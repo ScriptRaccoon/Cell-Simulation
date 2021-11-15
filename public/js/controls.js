@@ -1,3 +1,4 @@
+import { Body } from "./objects/Body.js";
 import { Poison } from "./objects/Poison.js";
 
 const poisonToggler = document.getElementById("poisonToggler");
@@ -18,7 +19,7 @@ export function enableControls() {
         } else {
             poisonLabel.innerText = "Poison off";
             clearInterval(poisonInterval);
-            Poison.removeAll();
+            Body.objectsOfType.Poison = [];
         }
     });
 }

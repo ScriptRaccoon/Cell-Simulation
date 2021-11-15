@@ -2,10 +2,20 @@ import { canvas, ctx, threshold } from "../canvas.js";
 import { randInt, distance, limit } from "../utils.js";
 
 export class Body {
-    static List = [];
+    static objectsOfType = {
+        Body: [],
+        Cell: [],
+        Poison: [],
+        Food: [],
+    };
+
+    static get allObjects() {
+        return Object.values(Body.objectsOfType).flat();
+    }
 
     constructor(x, y) {
-        Body.List.push(this);
+        this.type = this.constructor.name;
+        Body.objectsOfType[this.type].push(this);
         this.pos = {
             x: x || randInt(threshold, canvas.width - threshold),
             y: y || randInt(threshold, canvas.height - threshold),
@@ -23,7 +33,9 @@ export class Body {
     }
 
     remove() {
-        Body.List = Body.List.filter((body) => body != this);
+        Body.objectsOfType[this.type] = Body.objectsOfType[
+            this.type
+        ].filter((body) => body != this);
     }
 
     touches(body) {
@@ -49,7 +61,7 @@ export class Body {
     }
 
     static drawAll() {
-        for (const body of Body.List) {
+        for (const body of Body.allObjects) {
             body.draw();
         }
     }
@@ -64,7 +76,7 @@ export class Body {
     }
 
     static updateAll(deltaTime) {
-        for (const body of Body.List) {
+        for (const body of Body.allObjects) {
             body.update(deltaTime);
         }
     }

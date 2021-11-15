@@ -1,12 +1,7 @@
 import { Body } from "./Body.js";
 import { randInt } from "../utils.js";
-import { Cell } from "./Cell.js";
 
 export class Food extends Body {
-    static get List() {
-        return Body.List.filter((f) => f.constructor.name == "Food");
-    }
-
     constructor(x, y) {
         super(x, y);
         this.color = "#FF8030";
@@ -28,7 +23,9 @@ export class Food extends Body {
 
     getEaten() {
         if (this.isGrownUp) {
-            const cell = Cell.List.find((cell) => this.touches(cell));
+            const cell = Body.objectsOfType.Cell.find((cell) =>
+                this.touches(cell)
+            );
             if (cell) {
                 this.remove();
                 cell.reproduce();

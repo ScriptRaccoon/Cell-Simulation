@@ -7,23 +7,19 @@ import {
     distance,
 } from "../utils.js";
 import { Body } from "./Body.js";
-import { Food } from "./Food.js";
-import { Poison } from "./Poison.js";
 
 const cellInfo = document.getElementById("cellInfo");
 
 export class Cell extends Body {
     static maximalNumber = 1000;
 
-    static number = 0;
+    static get number() {
+        return Body.objectsOfType.Cell.length;
+    }
 
     static writeNumber() {
         cellInfo.innerText =
             Cell.number + (Cell.number > 1 ? " cells" : " cell");
-    }
-
-    static get List() {
-        return Body.List.filter((b) => b.constructor.name == "Cell");
     }
 
     constructor(x, y) {
@@ -38,7 +34,6 @@ export class Cell extends Body {
         this.growSize = 10;
         this.poisonAvoidance = 100;
         this.priority = null;
-        Cell.number++;
         Cell.writeNumber();
     }
 
@@ -52,15 +47,8 @@ export class Cell extends Body {
         this.updatePos(deltaTime);
     }
 
-    targetFood() {
-        if (Food.List[0] && !this.priority) {
-            const foodForce = difference(this.pos, Food.List[0].pos);
-            this.applyForce(foodForce);
-        }
-    }
-
     avoidPoison() {
-        for (const poison of Poison.List) {
+        for (const poison of Body.objectsOfType.Poison) {
             if (
                 distance(this.pos, poison.pos) <=
                 2 * (this.size + poison.size)
@@ -73,6 +61,14 @@ export class Cell extends Body {
                 );
                 this.applyForce(antiForce);
             }
+        }
+    }
+
+    targetFood() {
+        const food = Body.objectsOfType.Food[0];
+        if (food && !this.priority) {
+            const foodForce = difference(this.pos, food.pos);
+            this.applyForce(foodForce);
         }
     }
 
