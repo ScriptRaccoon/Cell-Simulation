@@ -1,11 +1,14 @@
 class Timer {
     constructor(deltaTime) {
         let accumulatedTime = 0;
-        let lastTime = null;
+        this.lastTime = null;
+        this.paused = false;
 
         this.loop = (currentTime) => {
-            if (lastTime) {
-                accumulatedTime += (currentTime - lastTime) / 1000;
+            if (this.paused) return;
+            if (this.lastTime) {
+                accumulatedTime +=
+                    (currentTime - this.lastTime) / 1000;
                 if (accumulatedTime > 1) {
                     accumulatedTime = 1;
                 }
@@ -15,14 +18,20 @@ class Timer {
                 }
             }
 
-            lastTime = currentTime;
+            this.lastTime = currentTime;
 
             this.start();
         };
     }
 
     start() {
+        this.paused = false;
         requestAnimationFrame(this.loop);
+    }
+
+    pause() {
+        this.paused = true;
+        this.lastTime = null;
     }
 }
 
