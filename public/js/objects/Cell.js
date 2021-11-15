@@ -19,7 +19,7 @@ export class Cell extends Body {
 
     static writeNumber() {
         cellInfo.innerText =
-            Cell.number + (Cell.number > 1 ? " cells" : " cell");
+            Cell.number + (Cell.number == 1 ? " cells" : " cell");
     }
 
     constructor(x, y) {
@@ -32,7 +32,9 @@ export class Cell extends Body {
         this.swimAmplitude = rand(Math.PI / 10, Math.PI / 8);
         this.growDuration = 0.3;
         this.growSize = 10;
-        this.prudence = randInt(2, 10);
+        this.prudence = randInt(2, 8);
+        this.dieTime = null;
+        this.poisoned = false;
         Cell.writeNumber();
     }
 
@@ -41,6 +43,7 @@ export class Cell extends Body {
         let avoiding = this.avoidPoison();
         if (!avoiding) this.targetFood();
         this.swim();
+        if (this.poisoned) this.die(deltaTime);
     }
 
     avoidPoison() {
@@ -80,6 +83,18 @@ export class Cell extends Body {
         this.maxSpeed /= 1.1;
         if (Cell.number < Cell.maximalNumber) {
             new Cell(this.pos.x, this.pos.y).vel = this.vel;
+        }
+    }
+
+    die(deltaTime) {
+        if (!this.dieTime) {
+            this.dieTime = this.time;
+            this.color = "#FF80FF";
+        }
+        this.alpha -= ((this.time - this.dieTime) * deltaTime) / 100;
+        if (this.alpha <= 0) {
+            this.remove();
+            Cell.writeNumber();
         }
     }
 }

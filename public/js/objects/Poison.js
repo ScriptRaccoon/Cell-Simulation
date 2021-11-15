@@ -1,6 +1,5 @@
 import { Body } from "./Body.js";
 import { randInt } from "../utils.js";
-import { Cell } from "./Cell.js";
 
 export class Poison extends Body {
     static frequency = 5000;
@@ -18,21 +17,20 @@ export class Poison extends Body {
 
     applyFeatures(deltaTime) {
         this.growUp(deltaTime);
-        this.eatCells();
+        this.poisonCells();
         if (this.isOutside) {
             this.remove();
         }
     }
 
-    eatCells() {
+    poisonCells() {
         if (this.isGrownUp) {
-            const cell = Body.objectsOfType.Cell.find((cell) =>
-                this.touches(cell)
+            const cell = Body.objectsOfType.Cell.find(
+                (cell) => !cell.poisoned && this.touches(cell)
             );
             if (cell) {
                 this.size += 1;
-                cell.remove();
-                Cell.writeNumber();
+                cell.poisoned = true;
             }
         }
     }
