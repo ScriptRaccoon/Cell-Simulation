@@ -33,27 +33,24 @@ export class Cell extends Body {
         this.growDuration = 0.3;
         this.growSize = 10;
         this.poisonAvoidance = 100;
-        this.priority = null;
         Cell.writeNumber();
     }
 
-    update(deltaTime) {
-        this.priority = null;
-        this.time++;
+    applyFeatures(deltaTime) {
         this.growUp(deltaTime);
-        this.avoidPoison();
-        this.targetFood();
+        let avoiding = this.avoidPoison();
+        if (!avoiding) this.targetFood();
         this.swim();
-        this.updatePos(deltaTime);
     }
 
     avoidPoison() {
+        let avoiding = false;
         for (const poison of Body.objectsOfType.Poison) {
             if (
                 distance(this.pos, poison.pos) <=
                 2 * (this.size + poison.size)
             ) {
-                this.priority = "poison";
+                avoiding = true;
                 const poisonForce = difference(this.pos, poison.pos);
                 const antiForce = scale(
                     poisonForce,
@@ -62,11 +59,12 @@ export class Cell extends Body {
                 this.applyForce(antiForce);
             }
         }
+        return avoiding;
     }
 
     targetFood() {
         const food = Body.objectsOfType.Food[0];
-        if (food && !this.priority) {
+        if (food) {
             const foodForce = difference(this.pos, food.pos);
             this.applyForce(foodForce);
         }

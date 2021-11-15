@@ -16,14 +16,12 @@ export class Poison extends Body {
         this.growSize = 20;
     }
 
-    update(deltaTime) {
-        this.time++;
+    applyFeatures(deltaTime) {
         this.growUp(deltaTime);
         this.eatCells();
         if (this.isOutside) {
             this.remove();
         }
-        this.updatePos(deltaTime);
     }
 
     eatCells() {

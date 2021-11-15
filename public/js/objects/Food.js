@@ -14,10 +14,8 @@ export class Food extends Body {
         this.growSize = 15;
     }
 
-    update(deltaTime) {
-        this.time++;
+    applyFeatures(deltaTime) {
         this.growUp(deltaTime);
-        this.updatePos(deltaTime);
         this.getEaten();
     }
 

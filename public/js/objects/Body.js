@@ -72,7 +72,13 @@ export class Body {
     }
 
     update(deltaTime) {
+        this.time++;
+        this.applyFeatures(deltaTime);
         this.updatePos(deltaTime);
+    }
+
+    applyFeatures() {
+        // overwritten in other classes
     }
 
     static updateAll(deltaTime) {
