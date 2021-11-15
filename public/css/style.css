@@ -43,9 +43,3 @@ label {
 label:hover {
     text-decoration: underline;
 }
-@media (max-width: 420px) {
-    header,
-    footer {
-        padding: 20px;
-    }
-}
