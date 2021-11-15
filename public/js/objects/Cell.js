@@ -32,7 +32,7 @@ export class Cell extends Body {
         this.swimAmplitude = rand(Math.PI / 10, Math.PI / 8);
         this.growDuration = 0.3;
         this.growSize = 10;
-        this.poisonAvoidance = 100;
+        this.prudence = randInt(2, 10);
         Cell.writeNumber();
     }
 
@@ -48,14 +48,11 @@ export class Cell extends Body {
         for (const poison of Body.objectsOfType.Poison) {
             if (
                 distance(this.pos, poison.pos) <=
-                2 * (this.size + poison.size)
+                this.prudence * (this.size + poison.size)
             ) {
                 avoiding = true;
                 const poisonForce = difference(this.pos, poison.pos);
-                const antiForce = scale(
-                    poisonForce,
-                    -this.poisonAvoidance
-                );
+                const antiForce = scale(poisonForce, -1);
                 this.applyForce(antiForce);
             }
         }
