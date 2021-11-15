@@ -32,7 +32,7 @@ export class Cell extends Body {
         this.maxForce = randInt(30, 60);
         this.swimLength = randInt(40, 50);
         this.swimAmplitude = rand(Math.PI / 10, Math.PI / 8);
-        this.growDuration = 0.3;
+        this.growDuration = 1;
         this.growSize = 10;
         this.prudence = randInt(2, 8);
         this.dieTime = null;
