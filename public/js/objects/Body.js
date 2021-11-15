@@ -1,10 +1,11 @@
-import { canvas, ctx } from "../canvas.js";
+import { canvas, ctx, threshold } from "../canvas.js";
 import { randInt, distance, limit } from "../utils.js";
 
-const threshold = 100;
-
 export class Body {
+    static List = [];
+
     constructor(x, y) {
+        Body.List.push(this);
         this.pos = {
             x: x || randInt(threshold, canvas.width - threshold),
             y: y || randInt(threshold, canvas.height - threshold),
@@ -19,6 +20,10 @@ export class Body {
         this.growDuration = 1;
         this.growSize = 10;
         this.isGrownUp = false;
+    }
+
+    remove() {
+        Body.List = Body.List.filter((body) => body != this);
     }
 
     touches(body) {
@@ -43,6 +48,12 @@ export class Body {
         ctx.closePath();
     }
 
+    static drawAll() {
+        for (const body of Body.List) {
+            body.draw();
+        }
+    }
+
     updatePos(deltaTime) {
         this.pos.x += this.vel.x * deltaTime;
         this.pos.y += this.vel.y * deltaTime;
@@ -50,6 +61,12 @@ export class Body {
 
     update(deltaTime) {
         this.updatePos(deltaTime);
+    }
+
+    static updateAll(deltaTime) {
+        for (const body of Body.List) {
+            body.update(deltaTime);
+        }
     }
 
     applyForce(force) {

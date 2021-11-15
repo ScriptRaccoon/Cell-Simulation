@@ -1,13 +1,18 @@
 import { Body } from "./Body.js";
 import { randInt } from "../utils.js";
-import { cells } from "./Cell.js";
-
-export let poisons = [];
+import { Cell } from "./Cell.js";
 
 export class Poison extends Body {
+    static get List() {
+        return Body.List.filter(
+            (p) => p.constructor.name == "Poison"
+        );
+    }
+
+    static frequency = 5000;
+
     constructor(x, y) {
         super(x, y);
-        poisons.push(this);
         this.color = "#FF0020";
         this.vel = {
             x: randInt(-100, 100),
@@ -17,12 +22,10 @@ export class Poison extends Body {
         this.growSize = 20;
     }
 
-    remove() {
-        poisons = poisons.filter((c) => c != this);
-    }
-
     static removeAll() {
-        poisons = [];
+        for (const p of Poison.List) {
+            p.remove();
+        }
     }
 
     update(deltaTime) {
@@ -37,10 +40,12 @@ export class Poison extends Body {
 
     eatCells() {
         if (this.isGrownUp) {
-            const cell = cells.find((cell) => this.touches(cell));
+            const cell = Cell.List.find((cell) => this.touches(cell));
             if (cell) {
                 this.size += 1;
                 cell.remove();
+                Cell.number--;
+                Cell.writeNumber();
             }
         }
     }

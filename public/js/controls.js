@@ -11,7 +11,10 @@ export function enableControls() {
         if (poisonToggler.checked) {
             poisonLabel.innerText = "Poison on";
             new Poison();
-            poisonInterval = setInterval(() => new Poison(), 5000);
+            poisonInterval = setInterval(
+                () => new Poison(),
+                Poison.frequency
+            );
         } else {
             poisonLabel.innerText = "Poison off";
             clearInterval(poisonInterval);

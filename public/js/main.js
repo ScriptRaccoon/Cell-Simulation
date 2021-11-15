@@ -1,21 +1,19 @@
 import { clearCanvas } from "./canvas.js";
 import { timer } from "./Timer.js";
-import { cells } from "./objects/Cell.js";
-import { foods } from "./objects/Food.js";
-import { poisons } from "./objects/Poison.js";
+import { Cell } from "./objects/Cell.js";
 import { enableControls } from "./controls.js";
+import { Body } from "./objects/Body.js";
+import { Food } from "./objects/Food.js";
 
 timer.update = (deltaTime) => {
     clearCanvas();
-    for (const obj of [...cells, ...foods, ...poisons]) {
-        obj.update(deltaTime);
-    }
-    for (const obj of [...cells, ...foods, ...poisons]) {
-        obj.draw();
-    }
+    Body.updateAll(deltaTime);
+    Body.drawAll();
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-    timer.start();
     enableControls();
+    timer.start();
+    new Cell();
+    new Food();
 });

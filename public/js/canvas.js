@@ -1,5 +1,6 @@
 export const canvas = document.getElementById("canvas");
 export const ctx = canvas.getContext("2d");
+export const threshold = 100;
 
 function adjustCanvas() {
     canvas.width = window.innerWidth;

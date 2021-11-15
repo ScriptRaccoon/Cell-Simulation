@@ -7,19 +7,27 @@ import {
     distance,
 } from "../utils.js";
 import { Body } from "./Body.js";
-import { foods } from "./Food.js";
-import { poisons } from "./Poison.js";
+import { Food } from "./Food.js";
+import { Poison } from "./Poison.js";
 
 const cellInfo = document.getElementById("cellInfo");
 
-export let cells = [];
-const maximalCellNumber = 1000;
-
 export class Cell extends Body {
+    static maximalNumber = 1000;
+
+    static number = 0;
+
+    static writeNumber() {
+        cellInfo.innerText =
+            Cell.number + (Cell.number > 1 ? " cells" : " cell");
+    }
+
+    static get List() {
+        return Body.List.filter((b) => b.constructor.name == "Cell");
+    }
+
     constructor(x, y) {
         super(x, y);
-        cells.push(this);
-        writeCellNumber();
         this.alpha = 0.5;
         this.color = "#3080FF";
         this.maxSpeed = randInt(200, 350);
@@ -30,11 +38,8 @@ export class Cell extends Body {
         this.growSize = 10;
         this.poisonAvoidance = 100;
         this.priority = null;
-    }
-
-    remove() {
-        cells = cells.filter((c) => c != this);
-        writeCellNumber();
+        Cell.number++;
+        Cell.writeNumber();
     }
 
     update(deltaTime) {
@@ -48,14 +53,14 @@ export class Cell extends Body {
     }
 
     targetFood() {
-        if (foods[0] && !this.priority) {
-            const foodForce = difference(this.pos, foods[0].pos);
+        if (Food.List[0] && !this.priority) {
+            const foodForce = difference(this.pos, Food.List[0].pos);
             this.applyForce(foodForce);
         }
     }
 
     avoidPoison() {
-        for (const poison of poisons) {
+        for (const poison of Poison.List) {
             if (
                 distance(this.pos, poison.pos) <=
                 2 * (this.size + poison.size)
@@ -82,16 +87,8 @@ export class Cell extends Body {
     reproduce() {
         this.size += 1;
         this.maxSpeed /= 1.1;
-        if (cells.length < maximalCellNumber) {
-            const newCell = new Cell(this.pos.x, this.pos.y);
-            newCell.vel = this.vel;
+        if (Cell.number < Cell.maximalNumber) {
+            new Cell(this.pos.x, this.pos.y).vel = this.vel;
         }
     }
 }
-
-function writeCellNumber() {
-    cellInfo.innerText =
-        cells.length + (cells.length > 1 ? " cells" : " cell");
-}
-
-new Cell();

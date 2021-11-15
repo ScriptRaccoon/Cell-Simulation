@@ -1,13 +1,14 @@
 import { Body } from "./Body.js";
 import { randInt } from "../utils.js";
-import { cells } from "./Cell.js";
+import { Cell } from "./Cell.js";
 
-export let foods = [];
+export class Food extends Body {
+    static get List() {
+        return Body.List.filter((f) => f.constructor.name == "Food");
+    }
 
-class Food extends Body {
     constructor(x, y) {
         super(x, y);
-        foods.push(this);
         this.color = "#FF8030";
         this.vel = {
             x: randInt(-50, 50),
@@ -16,10 +17,6 @@ class Food extends Body {
         this.reproductionDelay = 300;
         this.growDuration = 0.8;
         this.growSize = 15;
-    }
-
-    remove() {
-        foods = foods.filter((f) => f != this);
     }
 
     update(deltaTime) {
@@ -31,7 +28,7 @@ class Food extends Body {
 
     getEaten() {
         if (this.isGrownUp) {
-            const cell = cells.find((cell) => this.touches(cell));
+            const cell = Cell.List.find((cell) => this.touches(cell));
             if (cell) {
                 this.remove();
                 cell.reproduce();
@@ -42,5 +39,3 @@ class Food extends Body {
         }
     }
 }
-
-new Food();
