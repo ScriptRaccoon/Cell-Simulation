@@ -2,14 +2,16 @@ export const canvas = document.getElementById("canvas");
 export const ctx = canvas.getContext("2d");
 export const threshold = 100;
 
-function adjustCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+export function adjustCanvas() {
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+
+    resizeCanvas();
+
+    window.addEventListener("resize", resizeCanvas);
 }
-
-adjustCanvas();
-
-window.addEventListener("resize", adjustCanvas);
 
 export function clearCanvas() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);

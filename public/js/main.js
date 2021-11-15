@@ -1,4 +1,4 @@
-import { clearCanvas } from "./canvas.js";
+import { adjustCanvas, clearCanvas } from "./canvas.js";
 import { timer } from "./Timer.js";
 import { Cell } from "./objects/Cell.js";
 import { enableControls } from "./controls.js";
@@ -12,8 +12,9 @@ timer.update = (deltaTime) => {
 };
 
 document.addEventListener("DOMContentLoaded", () => {
+    adjustCanvas();
     enableControls();
-    timer.start();
     new Cell();
     new Food();
+    timer.start();
 });
