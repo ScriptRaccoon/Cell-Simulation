@@ -11,9 +11,9 @@ export class Helper extends Body {
         this.maxForce = 1000;
     }
 
-    applyFeatures(deltaTime) {
+    applyFeatures() {
         this.targetPoison();
-        this.killPoison();
+        this.neutralizePoison();
         if (this.isOutside) {
             this.remove();
         }
@@ -39,11 +39,12 @@ export class Helper extends Body {
         }
     }
 
-    killPoison() {
+    neutralizePoison() {
         if (
             this.targetedPoison &&
             this.touches(this.targetedPoison)
         ) {
+            this.remove();
             this.targetedPoison.neutralize();
         }
     }

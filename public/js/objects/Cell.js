@@ -16,6 +16,8 @@ const cellInfo = document.getElementById("cellInfo");
 export class Cell extends Body {
     static maximalNumber = 1000;
 
+    static helperRate = 0.1;
+
     static get number() {
         return Body.objectsOfType.Cell.length;
     }
@@ -92,7 +94,10 @@ export class Cell extends Body {
         this.size += 1;
         this.maxSpeed /= 1.1;
         if (Cell.number < Cell.maximalNumber) {
-            if (Math.random() < 0.1 && poisonToggler.checked) {
+            if (
+                Math.random() < Cell.helperRate &&
+                poisonToggler.checked
+            ) {
                 new Helper(this.pos.x, this.pos.y).vel = this.vel;
             } else {
                 new Cell(this.pos.x, this.pos.y).vel = this.vel;

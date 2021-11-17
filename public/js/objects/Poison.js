@@ -13,7 +13,7 @@ export class Poison extends Body {
         };
         this.growDuration = 0.3;
         this.growSize =
-            20 + Math.floor(Body.objectsOfType.Cell.length / 50);
+            20 + Math.floor(Body.objectsOfType.Cell.length / 20);
         this.neutralized = false;
     }
 
@@ -39,7 +39,6 @@ export class Poison extends Body {
 
     neutralize() {
         this.neutralized = true;
-        // this.color = "#50FF50";
-        this.alpha = 0.2;
+        this.alpha = 0.15;
     }
 }

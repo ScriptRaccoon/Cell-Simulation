@@ -10,7 +10,7 @@ export class Food extends Body {
 
     constructor(x, y) {
         super(x, y);
-        this.color = "#FF8030";
+        this.color = "#FFA030";
         this.vel = {
             x: randInt(-50, 50),
             y: randInt(-50, 50),
