@@ -7,6 +7,7 @@ export class Body {
         Cell: [],
         Poison: [],
         Food: [],
+        Helper: [],
     };
 
     static get allObjects() {

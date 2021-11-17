@@ -12,4 +12,8 @@ You can also turn on poison, which pops up regularly. The cells try avoid the po
 
 ![Screenshot](./screenshot2.png)
 
+The cells have another defense mechanism. Sometimes after having food they produce helper cells which immediately head off to neutralize the nearest poison.
+
+![Screenshot](./screenshot3.png)
+
 There can be at most 1000 cells and at most 3 foods.

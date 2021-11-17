@@ -9,6 +9,7 @@ import {
 } from "../utils.js";
 import { Body } from "./Body.js";
 import { Food } from "./Food.js";
+import { Helper } from "./Helper.js";
 
 const cellInfo = document.getElementById("cellInfo");
 
@@ -53,8 +54,9 @@ export class Cell extends Body {
         let avoiding = false;
         for (const poison of Body.objectsOfType.Poison) {
             if (
+                !poison.neutralized &&
                 distance(this.pos, poison.pos) <=
-                this.prudence * (this.size + poison.size)
+                    this.prudence * (this.size + poison.size)
             ) {
                 avoiding = true;
                 const poisonForce = difference(this.pos, poison.pos);
@@ -90,7 +92,11 @@ export class Cell extends Body {
         this.size += 1;
         this.maxSpeed /= 1.1;
         if (Cell.number < Cell.maximalNumber) {
-            new Cell(this.pos.x, this.pos.y).vel = this.vel;
+            if (Math.random() < 0.1 && poisonToggler.checked) {
+                new Helper(this.pos.x, this.pos.y).vel = this.vel;
+            } else {
+                new Cell(this.pos.x, this.pos.y).vel = this.vel;
+            }
         }
     }
 
