@@ -25,6 +25,7 @@ export function enableControls() {
             poisonLabel.innerText = "Poison off";
             clearInterval(poisonInterval);
             Body.objectsOfType.Poison = [];
+            Body.objectsOfType.Helper = [];
         }
     });
     pauseToggler.addEventListener("change", () => {
