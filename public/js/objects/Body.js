@@ -98,7 +98,7 @@ export class Body {
     get isOutside() {
         return (
             this.pos.x - this.size > canvas.width ||
-            this.pos < -this.size ||
+            this.pos.x < -this.size ||
             this.pos.y - this.size > canvas.height ||
             this.pos.y < -this.size
         );

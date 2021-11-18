@@ -30,6 +30,7 @@ export function enableControls() {
             poisonStat.style.display = "none";
             poisonLabel.className = "fas fa-toggle-off";
             clearInterval(poisonInterval);
+            poisonInterval = null;
             Body.objectsOfType.Poison = [];
             Body.objectsOfType.Helper = [];
         }
@@ -38,7 +39,8 @@ export function enableControls() {
         if (pauseToggler.checked) {
             timer.pause();
             pauseLabel.className = "fas fa-play-circle";
-            clearInterval(poisonInterval);
+            if (poisonInterval) clearInterval(poisonInterval);
+            poisonInterval = null;
         } else {
             timer.start();
             pauseLabel.className = "far fa-stop-circle";
