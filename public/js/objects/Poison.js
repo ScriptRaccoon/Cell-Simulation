@@ -1,8 +1,20 @@
 import { Body } from "./Body.js";
 import { randInt } from "../utils.js";
 
+const poisonInfo = document.getElementById("poisonInfo");
+
 export class Poison extends Body {
     static frequency = 2000;
+
+    static get number() {
+        return Body.objectsOfType.Poison.length;
+    }
+
+    static writeNumber() {
+        poisonInfo.innerText =
+            Poison.number +
+            (Poison.number == 1 ? " poison" : " poisons");
+    }
 
     constructor(x, y) {
         super(x, y);
@@ -15,6 +27,7 @@ export class Poison extends Body {
         this.growSize =
             20 + Math.floor(Body.objectsOfType.Cell.length / 20);
         this.neutralized = false;
+        Poison.writeNumber();
     }
 
     applyFeatures(deltaTime) {
@@ -22,6 +35,7 @@ export class Poison extends Body {
         this.poisonCells();
         if (this.isOutside) {
             this.remove();
+            Poison.writeNumber();
         }
     }
 

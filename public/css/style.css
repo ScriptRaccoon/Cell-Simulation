@@ -66,3 +66,6 @@ label {
 label:hover {
     text-decoration: underline;
 }
+#poisonInfo {
+    display: none;
+}

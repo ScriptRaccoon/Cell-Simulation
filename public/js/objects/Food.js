@@ -1,11 +1,18 @@
 import { Body } from "./Body.js";
 import { randInt } from "../utils.js";
 
+const foodInfo = document.getElementById("foodInfo");
+
 export class Food extends Body {
     static maximalNumber = 3;
 
     static get number() {
         return Body.objectsOfType.Food.length;
+    }
+
+    static writeNumber() {
+        foodInfo.innerText =
+            Food.number + (Food.number == 1 ? " food" : " foods");
     }
 
     constructor(x, y) {
@@ -18,6 +25,7 @@ export class Food extends Body {
         this.growDuration = 0.8;
         this.growSize = 15;
         this.eaten = false;
+        Food.writeNumber();
     }
 
     applyFeatures(deltaTime) {

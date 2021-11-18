@@ -61,6 +61,7 @@ export class Cell extends Body {
             if (food) {
                 food.eaten = true;
                 food.remove();
+                Food.writeNumber();
                 this.reproduce();
                 setTimeout(() => {
                     if (Food.number < Food.maximalNumber) {

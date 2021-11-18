@@ -4,6 +4,7 @@ import { timer } from "./Timer.js";
 
 const poisonToggler = document.getElementById("poisonToggler");
 const poisonLabel = document.getElementById("poisonLabel");
+const poisonInfo = document.getElementById("poisonInfo");
 poisonToggler.checked = false;
 
 const pauseToggler = document.getElementById("pauseToggler");
@@ -19,12 +20,14 @@ export function enableControls() {
     poisonToggler.addEventListener("change", () => {
         if (poisonToggler.checked) {
             poisonLabel.innerText = "Poison on";
+            poisonInfo.style.display = "block";
             new Poison();
             poisonInterval = setInterval(
                 () => new Poison(),
                 Poison.frequency
             );
         } else {
+            poisonInfo.style.display = "none";
             poisonLabel.innerText = "Poison off";
             clearInterval(poisonInterval);
             Body.objectsOfType.Poison = [];
