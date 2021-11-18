@@ -11,9 +11,7 @@ export class Poison extends Body {
     }
 
     static writeNumber() {
-        poisonInfo.innerText =
-            Poison.number +
-            (Poison.number == 1 ? " poison" : " poisons");
+        poisonInfo.innerText = Poison.number + " poisons";
     }
 
     constructor(x, y) {

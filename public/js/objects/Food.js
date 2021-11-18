@@ -11,8 +11,7 @@ export class Food extends Body {
     }
 
     static writeNumber() {
-        foodInfo.innerText =
-            Food.number + (Food.number == 1 ? " food" : " foods");
+        foodInfo.innerText = Food.number + " foods";
     }
 
     constructor(x, y) {

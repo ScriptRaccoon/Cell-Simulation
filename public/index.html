@@ -19,24 +19,28 @@
         <div id="menuContent">
             <ul>
                 <li>
-                    <span id="cellInfo"></span>
+                    <div class="cell-icon cell"></div> <span id="cellInfo"></span>
                 </li>
                 <li>
-                    <span id="foodInfo"></span>
+                    <div class="cell-icon food"></div> <span id="foodInfo"></span>
                 </li>
-                <li>
-                    <span id="poisonInfo"></span>
+                <li id="poisonStat">
+                    <div class="cell-icon poison"></div> <span id="poisonInfo"></span>
                 </li>
+                <br>
                 <li>
-                    <label id="poisonLabel" for="poisonToggler">Poison off</label>
+                    Poison<label id="poisonLabel" for="poisonToggler" class="fas fa-toggle-off"></label>
                     <input type="checkbox" id="poisonToggler">
                 </li>
                 <li>
-                    <label id="pauseLabel" for="pauseToggler">Pause</label>
+                    Pause&nbsp;<label id="pauseLabel" for="pauseToggler" class="far fa-stop-circle">
+                    </label>
                     <input type="checkbox" id="pauseToggler">
                 </li>
                 <li>
-                    <a href="https://github.com/ScriptRaccoon/cell-simulation" target="_blank">GitHub</a>
+                    Code&nbsp;&nbsp;&nbsp;<a href="https://github.com/ScriptRaccoon/cell-simulation" target="_blank" title="Code on GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
                 </li>
             </ul>
         </div>

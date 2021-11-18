@@ -4,7 +4,7 @@ import { timer } from "./Timer.js";
 
 const poisonToggler = document.getElementById("poisonToggler");
 const poisonLabel = document.getElementById("poisonLabel");
-const poisonInfo = document.getElementById("poisonInfo");
+const poisonStat = document.getElementById("poisonStat");
 poisonToggler.checked = false;
 
 const pauseToggler = document.getElementById("pauseToggler");
@@ -19,16 +19,16 @@ let poisonInterval;
 export function enableControls() {
     poisonToggler.addEventListener("change", () => {
         if (poisonToggler.checked) {
-            poisonLabel.innerText = "Poison on";
-            poisonInfo.style.display = "block";
+            poisonLabel.className = "fas fa-toggle-on";
+            poisonStat.style.display = "block";
             new Poison();
             poisonInterval = setInterval(
                 () => new Poison(),
                 Poison.frequency
             );
         } else {
-            poisonInfo.style.display = "none";
-            poisonLabel.innerText = "Poison off";
+            poisonStat.style.display = "none";
+            poisonLabel.className = "fas fa-toggle-off";
             clearInterval(poisonInterval);
             Body.objectsOfType.Poison = [];
             Body.objectsOfType.Helper = [];
@@ -37,11 +37,11 @@ export function enableControls() {
     pauseToggler.addEventListener("change", () => {
         if (pauseToggler.checked) {
             timer.pause();
-            pauseLabel.innerText = "Start";
+            pauseLabel.className = "fas fa-play-circle";
             clearInterval(poisonInterval);
         } else {
             timer.start();
-            pauseLabel.innerText = "Pause";
+            pauseLabel.className = "far fa-stop-circle";
             if (poisonToggler.checked) {
                 poisonInterval = setInterval(
                     () => new Poison(),

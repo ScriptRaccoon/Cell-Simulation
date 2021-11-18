@@ -23,8 +23,7 @@ export class Cell extends Body {
     }
 
     static writeNumber() {
-        cellInfo.innerText =
-            Cell.number + (Cell.number == 1 ? " cell" : " cells");
+        cellInfo.innerText = Cell.number + " cells";
     }
 
     constructor(x, y) {
