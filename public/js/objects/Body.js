@@ -103,4 +103,14 @@ export class Body {
             this.pos.y < -this.size
         );
     }
+
+    getClosestOfType(type, condition = () => true) {
+        return Body.objectsOfType[type]
+            .filter((b) => condition(b))
+            .sort(
+                (b, c) =>
+                    distance(b.pos, this.pos) -
+                    distance(c.pos, this.pos)
+            )[0];
+    }
 }

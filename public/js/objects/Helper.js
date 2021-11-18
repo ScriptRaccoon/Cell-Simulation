@@ -21,14 +21,10 @@ export class Helper extends Body {
 
     targetPoison() {
         if (!this.targetedPoison) {
-            const targets = Body.objectsOfType.Poison.filter(
+            this.targetedPoison = this.getClosestOfType(
+                "Poison",
                 (p) => !p.neutralized
-            ).sort(
-                (p, q) =>
-                    distance(p.pos, this.pos) -
-                    distance(q.pos, this.pos)
             );
-            if (targets) this.targetedPoison = targets[0];
         }
         if (this.targetedPoison) {
             const poisonForce = difference(

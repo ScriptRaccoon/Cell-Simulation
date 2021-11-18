@@ -46,10 +46,29 @@ export class Cell extends Body {
 
     applyFeatures(deltaTime) {
         this.growUp(deltaTime);
+        this.eatFood();
         let avoiding = this.avoidPoison();
         if (!avoiding) this.targetFood();
         this.swim();
         if (this.poisoned) this.die(deltaTime);
+    }
+
+    eatFood() {
+        if (this.isGrownUp) {
+            const food = Body.objectsOfType.Food.find(
+                (food) => this.touches(food) && food.isGrownUp
+            );
+            if (food) {
+                food.eaten = true;
+                food.remove();
+                this.reproduce();
+                setTimeout(() => {
+                    if (Food.number < Food.maximalNumber) {
+                        new Food();
+                    }
+                }, 300);
+            }
+        }
     }
 
     avoidPoison() {
@@ -71,7 +90,7 @@ export class Cell extends Body {
 
     targetFood() {
         if (!this.targetedFood || this.targetedFood.eaten) {
-            this.targetedFood = randEl(Body.objectsOfType.Food);
+            this.targetedFood = this.getClosestOfType("Food");
         }
         if (this.targetedFood) {
             const foodForce = difference(

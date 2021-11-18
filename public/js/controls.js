@@ -10,6 +10,9 @@ const pauseToggler = document.getElementById("pauseToggler");
 const pauseLabel = document.getElementById("pauseLabel");
 pauseToggler.checked = false;
 
+const hamburger = document.getElementById("hamburger");
+const menu = document.getElementById("menu");
+
 let poisonInterval;
 
 export function enableControls() {
@@ -43,5 +46,8 @@ export function enableControls() {
                 );
             }
         }
+    });
+    hamburger.addEventListener("click", () => {
+        menu.classList.toggle("visible");
     });
 }

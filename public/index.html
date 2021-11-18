@@ -4,24 +4,38 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Cell Simulation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="./css/style.css">
     <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
     <link rel="icon" href="./favicon.ico" type="image/x-icon">
     <meta name="viewport" content="width=device-width; 
     initial-scale=1; maximum-scale=1; user-scalable=0;"/>
 </head>
-<body>    
-    <header>
-        <span title="Number of cells" id="cellInfo"></span>
-        <a title="GitHub repository" href="https://github.com/ScriptRaccoon/cell-simulation" target="_blank">GitHub</a>
-    </header>    
+<body>
+    <aside id="menu">
+        <div id="hamburger">
+            <i class="fas fa-bars"></i>
+        </div>
+        <div id="menuContent">
+            <ul>
+                <li>
+                    <span id="cellInfo"></span>
+                </li>
+                <li>
+                    <label id="poisonLabel" for="poisonToggler">Poison off</label>
+                    <input type="checkbox" id="poisonToggler">
+                </li>
+                <li>
+                    <label id="pauseLabel" for="pauseToggler">Pause</label>
+                    <input type="checkbox" id="pauseToggler">
+                </li>
+                <li>
+                    <a href="https://github.com/ScriptRaccoon/cell-simulation" target="_blank">GitHub</a>
+                </li>
+            </ul>
+        </div>
+    </aside>
     <canvas id="canvas" width="900" height="600"></canvas>
-    <footer>
-        <label id="poisonLabel" for="poisonToggler">Poison off</label>
-        <input type="checkbox" id="poisonToggler">
-        <label id="pauseLabel" for="pauseToggler">Pause</label>
-        <input type="checkbox" id="pauseToggler">
-    </footer>   
     <script src="./js/main.js" type="module"></script>
 </body>
 </html>

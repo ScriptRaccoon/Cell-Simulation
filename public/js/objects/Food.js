@@ -15,7 +15,6 @@ export class Food extends Body {
             x: randInt(-50, 50),
             y: randInt(-50, 50),
         };
-        this.reproductionDelay = 300;
         this.growDuration = 0.8;
         this.growSize = 15;
         this.eaten = false;
@@ -23,24 +22,5 @@ export class Food extends Body {
 
     applyFeatures(deltaTime) {
         this.growUp(deltaTime);
-        this.getEaten();
-    }
-
-    getEaten() {
-        if (this.isGrownUp) {
-            const cell = Body.objectsOfType.Cell.find((cell) =>
-                this.touches(cell)
-            );
-            if (cell) {
-                this.eaten = true;
-                this.remove();
-                cell.reproduce();
-                setTimeout(() => {
-                    if (Food.number < Food.maximalNumber) {
-                        new Food();
-                    }
-                }, this.reproductionDelay);
-            }
-        }
     }
 }
