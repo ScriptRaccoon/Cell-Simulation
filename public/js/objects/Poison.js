@@ -1,5 +1,6 @@
 import { Body } from "./Body.js";
 import { randInt } from "../utils.js";
+import { Cell } from "./Cell.js";
 
 const poisonInfo = document.getElementById("poisonInfo");
 
@@ -24,7 +25,10 @@ export class Poison extends Body {
         };
         this.growDuration = 0.3;
         this.growSize =
-            20 + Math.floor(Body.objectsOfType.Cell.length / 20);
+            Cell.number < 900 || Math.random() < 0.5
+                ? 20 + Math.floor(Cell.number / 20)
+                : 200;
+
         this.neutralized = false;
         Poison.writeNumber();
     }
