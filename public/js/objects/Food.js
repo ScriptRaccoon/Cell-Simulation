@@ -1,8 +1,6 @@
 import { Body } from "./Body.js";
 import { randInt } from "../utils.js";
 
-const foodInfo = document.getElementById("foodInfo");
-
 export class Food extends Body {
     static maximalNumber = 4;
 
@@ -11,7 +9,7 @@ export class Food extends Body {
     }
 
     static writeNumber() {
-        foodInfo.innerText = Food.number + " foods";
+        $("#foodInfo").text(`${Food.number} foods`);
     }
 
     constructor(x, y) {

@@ -113,4 +113,10 @@ export class Body {
                     distance(c.pos, this.pos)
             )[0];
     }
+
+    removeIfOutside() {
+        if (this.isOutside) {
+            this.remove();
+        }
+    }
 }

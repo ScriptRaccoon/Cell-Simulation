@@ -10,10 +10,6 @@ import { Body } from "./Body.js";
 import { Food } from "./Food.js";
 import { Helper } from "./Helper.js";
 
-const cellInfo = document.getElementById("cellInfo");
-const immortalInfo = document.getElementById("immortalInfo");
-const immortalIcon = document.querySelector(".cell-icon.immortal");
-
 export class Cell extends Body {
     static maximalNumber = 1000;
 
@@ -28,7 +24,7 @@ export class Cell extends Body {
     static immortalNumber = 0;
 
     static writeNumber() {
-        cellInfo.innerText = Cell.number + " cells";
+        $("#cellInfo").text(`${Cell.number} cells`);
     }
 
     constructor(x, y) {
@@ -53,10 +49,10 @@ export class Cell extends Body {
             this.isImmortal = true;
             this.color = "#FFFFFF";
             Cell.immortalNumber++;
-            immortalInfo.style.display = "block";
-            immortalIcon.style.display = "block";
-            immortalInfo.innerText =
-                Cell.immortalNumber + " immortal cells";
+            $("#immortalInfo").show();
+            $(".cell-icon.immortal")
+                .show()
+                .text(`${Cell.immortalNumber} immortal cells`);
         }
         Cell.writeNumber();
     }

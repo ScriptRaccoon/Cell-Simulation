@@ -5,70 +5,76 @@ import { Food } from "./objects/Food.js";
 import { Poison } from "./objects/Poison.js";
 import { timer } from "./Timer.js";
 
-const poisonToggler = document.getElementById("poisonToggler");
-const poisonLabel = document.getElementById("poisonLabel");
-poisonToggler.checked = false;
-
-const pauseToggler = document.getElementById("pauseToggler");
-const pauseLabel = document.getElementById("pauseLabel");
-pauseToggler.checked = false;
-
-const hamburger = document.getElementById("hamburger");
-const menu = document.getElementById("menu");
-
-const restartBtn = document.getElementById("restartBtn");
-
-let poisonInterval;
+let poisonInterval = null;
 
 export function enableControls() {
-    poisonToggler.addEventListener("change", () => {
-        if (poisonToggler.checked) {
-            poisonLabel.className = "fas fa-toggle-on";
-            new Poison();
+    $("#poisonToggler, #pauseToggler").prop("checked", false);
+    $("#poisonToggler").on("change", togglePoison);
+    $("#pauseToggler").on("change", togglePause);
+    $("#hamburger").on("click", toggleMenu);
+    $("#restartBtn").on("click", restartSimulation);
+}
+
+function togglePoison() {
+    if ($("#poisonToggler").prop("checked")) {
+        $("#poisonLabel")
+            .removeClass("fa-toggle-off")
+            .addClass("fa-toggle-on");
+        new Poison();
+        poisonInterval = setInterval(
+            () => new Poison(),
+            Poison.frequency
+        );
+    } else {
+        $("#poisonLabel")
+            .removeClass("fa-toggle-on")
+            .addClass("fa-toggle-off");
+        clearInterval(poisonInterval);
+        poisonInterval = null;
+        Body.objectsOfType.Poison = [];
+        Body.objectsOfType.Helper = [];
+        Poison.writeNumber();
+    }
+}
+
+function togglePause() {
+    if ($("#pauseToggler").prop("checked")) {
+        timer.pause();
+        $("#pauseLabel")
+            .removeClass("far fa-stop-circle")
+            .addClass("fas fa-play-circle");
+        clearInterval(poisonInterval);
+        poisonInterval = null;
+    } else {
+        timer.start();
+        $("#pauseLabel")
+            .removeClass("fas fa-play-circle")
+            .addClass("far fa-stop-circle");
+        if ($("#poisonToggler").prop("checked")) {
             poisonInterval = setInterval(
                 () => new Poison(),
                 Poison.frequency
             );
-        } else {
-            poisonLabel.className = "fas fa-toggle-off";
-            clearInterval(poisonInterval);
-            poisonInterval = null;
-            Body.objectsOfType.Poison = [];
-            Body.objectsOfType.Helper = [];
-            Poison.writeNumber();
         }
-    });
-    pauseToggler.addEventListener("change", () => {
-        if (pauseToggler.checked) {
-            timer.pause();
-            pauseLabel.className = "fas fa-play-circle";
-            if (poisonInterval) clearInterval(poisonInterval);
-            poisonInterval = null;
-        } else {
-            timer.start();
-            pauseLabel.className = "far fa-stop-circle";
-            if (poisonToggler.checked) {
-                poisonInterval = setInterval(
-                    () => new Poison(),
-                    Poison.frequency
-                );
-            }
-        }
-    });
-    hamburger.addEventListener("click", () => {
-        menu.classList.toggle("visible");
-    });
-    restartBtn.addEventListener("click", () => {
-        clearCanvas();
-        Body.objectsOfType.Cell = [];
-        Body.objectsOfType.Food = [];
-        Body.objectsOfType.Helper = [];
-        Body.objectsOfType.Poison = [];
-        Cell.writeNumber();
-        Poison.writeNumber();
-        Food.writeNumber();
-        Cell.immortalNumber = 0;
-        new Cell();
-        new Food();
-    });
+    }
+}
+
+function toggleMenu() {
+    $("#menu").toggleClass("visible");
+}
+
+function restartSimulation() {
+    clearInterval(poisonInterval);
+    poisonInterval = null;
+    clearCanvas();
+    Body.objectsOfType.Cell = [];
+    Body.objectsOfType.Food = [];
+    Body.objectsOfType.Helper = [];
+    Body.objectsOfType.Poison = [];
+    Cell.writeNumber();
+    Poison.writeNumber();
+    Food.writeNumber();
+    Cell.immortalNumber = 0;
+    new Cell();
+    new Food();
 }

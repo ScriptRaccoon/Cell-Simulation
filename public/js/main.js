@@ -12,13 +12,11 @@ timer.update = (deltaTime) => {
     Body.drawAll();
 };
 
-document.addEventListener("DOMContentLoaded", init);
-
-function init() {
+$(() => {
     adjustCanvas();
     enableControls();
     new Cell();
     new Food();
     Poison.writeNumber();
     timer.start();
-}
+});

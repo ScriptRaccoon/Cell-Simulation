@@ -14,9 +14,7 @@ export class Helper extends Body {
     applyFeatures() {
         this.targetPoison();
         this.neutralizePoison();
-        if (this.isOutside) {
-            this.remove();
-        }
+        this.removeIfOutside();
     }
 
     targetPoison() {

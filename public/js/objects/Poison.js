@@ -2,8 +2,6 @@ import { Body } from "./Body.js";
 import { randInt } from "../utils.js";
 import { Cell } from "./Cell.js";
 
-const poisonInfo = document.getElementById("poisonInfo");
-
 export class Poison extends Body {
     static frequency = 2000;
 
@@ -13,7 +11,7 @@ export class Poison extends Body {
     }
 
     static writeNumber() {
-        poisonInfo.innerText = Poison.number + " poisons";
+        $("#poisonInfo").text(`${Poison.number} poisons`);
     }
 
     constructor(x, y) {
@@ -36,10 +34,8 @@ export class Poison extends Body {
     applyFeatures(deltaTime) {
         this.growUp(deltaTime);
         this.poisonCells();
-        if (this.isOutside) {
-            this.remove();
-            Poison.writeNumber();
-        }
+        this.removeIfOutside();
+        Poison.writeNumber();
     }
 
     poisonCells() {

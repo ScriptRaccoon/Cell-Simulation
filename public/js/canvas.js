@@ -1,4 +1,4 @@
-export const canvas = document.getElementById("canvas");
+export const canvas = $("#canvas")[0];
 export const ctx = canvas.getContext("2d");
 export const threshold = 100;
 
@@ -10,7 +10,7 @@ export function adjustCanvas() {
 
     resizeCanvas();
 
-    window.addEventListener("resize", resizeCanvas);
+    $(window).on("resize", resizeCanvas);
 }
 
 export function clearCanvas() {
