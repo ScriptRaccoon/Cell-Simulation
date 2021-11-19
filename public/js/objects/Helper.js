@@ -1,45 +1,25 @@
-import { difference } from "../utils.js";
+import { targetClosest } from "../features/targetClosest.js";
+import { deactivateTarget } from "../features/deactivateTarget.js";
+import { removeIfOutside } from "../features/removeIfOutside.js";
+import { swim } from "../features/swim.js";
+
 import { Body } from "./Body.js";
 
 export class Helper extends Body {
-    constructor(x, y) {
-        super(x, y);
+    constructor(pos, vel) {
+        super(pos, vel);
         this.color = "#50FF50";
         this.size = 5;
-        this.targetedPoison = null;
-        this.maxSpeed = 500;
+        this.maxSpeed = 400;
         this.maxForce = 1000;
-    }
-
-    applyFeatures() {
-        this.targetPoison();
-        this.neutralizePoison();
-        this.removeIfOutside();
-    }
-
-    targetPoison() {
-        if (!this.targetedPoison) {
-            this.targetedPoison = this.getClosestOfType(
-                "Poison",
-                (p) => !p.neutralized
-            );
-        }
-        if (this.targetedPoison) {
-            const poisonForce = difference(
-                this.pos,
-                this.targetedPoison.pos
-            );
-            this.applyForce(poisonForce);
-        }
-    }
-
-    neutralizePoison() {
-        if (
-            this.targetedPoison &&
-            this.touches(this.targetedPoison)
-        ) {
-            this.remove();
-            this.targetedPoison.neutralize();
-        }
+        this.features = [
+            targetClosest("Poison"),
+            swim({
+                length: 30,
+                amplitude: Math.PI / 15,
+            }),
+            deactivateTarget,
+            removeIfOutside,
+        ];
     }
 }

@@ -8,29 +8,30 @@ export class Body {
         Poison: [],
         Food: [],
         Helper: [],
+        Immortal: [],
     };
 
     static get allObjects() {
         return Object.values(Body.objectsOfType).flat();
     }
 
-    constructor(x, y) {
+    constructor(pos, vel) {
         this.type = this.constructor.name;
         Body.objectsOfType[this.type].push(this);
-        this.pos = {
-            x: x || randInt(threshold, canvas.width - threshold),
-            y: y || randInt(threshold, canvas.height - threshold),
+        this.pos = pos || {
+            x: randInt(threshold, canvas.width - threshold),
+            y: randInt(threshold, canvas.height - threshold),
         };
+        this.vel = vel || { x: 0, y: 0 };
         this.size = 0;
-        this.vel = { x: 0, y: 0 };
         this.alpha = 1;
         this.color = "#00FF00";
         this.maxForce = 0;
         this.maxSpeed = 0;
         this.time = 0;
-        this.growDuration = 1;
-        this.growSize = 10;
         this.isGrownUp = false;
+        this.active = true;
+        this.features = [];
     }
 
     remove() {
@@ -41,15 +42,6 @@ export class Body {
 
     touches(body) {
         return distance(this.pos, body.pos) < this.size + body.size;
-    }
-
-    growUp(deltaTime) {
-        if (this.time <= this.growDuration / deltaTime) {
-            const rate = this.time / (this.growDuration / deltaTime);
-            this.size = Math.pow(rate, 3) * this.growSize;
-        } else {
-            this.isGrownUp = true;
-        }
     }
 
     draw() {
@@ -67,19 +59,17 @@ export class Body {
         }
     }
 
-    updatePos(deltaTime) {
+    updatePosition(deltaTime) {
         this.pos.x += this.vel.x * deltaTime;
         this.pos.y += this.vel.y * deltaTime;
     }
 
     update(deltaTime) {
         this.time++;
-        this.applyFeatures(deltaTime);
-        this.updatePos(deltaTime);
-    }
-
-    applyFeatures() {
-        // overwritten in other classes
+        for (const feature of this.features) {
+            feature(this, deltaTime);
+        }
+        this.updatePosition(deltaTime);
     }
 
     static updateAll(deltaTime) {
@@ -104,19 +94,13 @@ export class Body {
         );
     }
 
-    getClosestOfType(type, condition = () => true) {
+    getClosestOfType(type) {
         return Body.objectsOfType[type]
-            .filter((b) => condition(b))
+            .filter((b) => b.active)
             .sort(
                 (b, c) =>
                     distance(b.pos, this.pos) -
                     distance(c.pos, this.pos)
             )[0];
-    }
-
-    removeIfOutside() {
-        if (this.isOutside) {
-            this.remove();
-        }
     }
 }

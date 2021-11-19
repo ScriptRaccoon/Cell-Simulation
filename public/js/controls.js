@@ -2,7 +2,9 @@ import { clearCanvas } from "./canvas.js";
 import { Body } from "./objects/Body.js";
 import { Cell } from "./objects/Cell.js";
 import { Food } from "./objects/Food.js";
+import { Immortal } from "./objects/Immortal.js";
 import { Poison } from "./objects/Poison.js";
+import { STATE } from "./state.js";
 import { timer } from "./Timer.js";
 
 let poisonInterval = null;
@@ -16,7 +18,8 @@ export function enableControls() {
 }
 
 function togglePoison() {
-    if ($("#poisonToggler").prop("checked")) {
+    if (STATE.POISON_ON == false) {
+        STATE.POISON_ON = true;
         $("#poisonLabel")
             .toggleClass("fa-toggle-off")
             .toggleClass("fa-toggle-on");
@@ -26,6 +29,7 @@ function togglePoison() {
             Poison.frequency
         );
     } else {
+        STATE.POISON_ON = false;
         $("#poisonLabel")
             .toggleClass("fa-toggle-on")
             .toggleClass("fa-toggle-off");
@@ -38,7 +42,8 @@ function togglePoison() {
 }
 
 function togglePause() {
-    if ($("#pauseToggler").prop("checked")) {
+    if (STATE.PAUSED == false) {
+        STATE.PAUSED = true;
         timer.pause();
         $("#pauseLabel")
             .toggleClass("far fa-stop-circle")
@@ -46,11 +51,12 @@ function togglePause() {
         clearInterval(poisonInterval);
         poisonInterval = null;
     } else {
+        STATE.PAUSED = false;
         timer.start();
         $("#pauseLabel")
             .toggleClass("fas fa-play-circle")
             .toggleClass("far fa-stop-circle");
-        if ($("#poisonToggler").prop("checked")) {
+        if (STATE.POISON_ON) {
             poisonInterval = setInterval(
                 () => new Poison(),
                 Poison.frequency
@@ -74,10 +80,12 @@ function restartSimulation() {
     Body.objectsOfType.Food = [];
     Body.objectsOfType.Helper = [];
     Body.objectsOfType.Poison = [];
+    Body.objectsOfType.Immortal = [];
     Cell.writeNumber();
     Poison.writeNumber();
     Food.writeNumber();
-    Cell.immortalNumber = 0;
+    $(".cell-icon.immortal").hide();
+    $("#immortalInfo").hide();
     new Cell();
     new Food();
 }

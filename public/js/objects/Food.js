@@ -1,5 +1,6 @@
 import { Body } from "./Body.js";
 import { randInt } from "../utils.js";
+import { growUp } from "../features/growUp.js";
 
 export class Food extends Body {
     static maximalNumber = 4;
@@ -12,20 +13,13 @@ export class Food extends Body {
         $("#foodInfo").text(`${Food.number} foods`);
     }
 
-    constructor(x, y) {
-        super(x, y);
-        this.color = "#FFA030";
-        this.vel = {
+    constructor(pos) {
+        super(pos, {
             x: randInt(-50, 50),
             y: randInt(-50, 50),
-        };
-        this.growDuration = 0.8;
-        this.growSize = 15;
-        this.eaten = false;
+        });
+        this.color = "#FFA030";
         Food.writeNumber();
-    }
-
-    applyFeatures(deltaTime) {
-        this.growUp(deltaTime);
+        this.features = [growUp({ duration: 0.8, size: 15 })];
     }
 }
