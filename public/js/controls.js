@@ -18,8 +18,8 @@ export function enableControls() {
 function togglePoison() {
     if ($("#poisonToggler").prop("checked")) {
         $("#poisonLabel")
-            .removeClass("fa-toggle-off")
-            .addClass("fa-toggle-on");
+            .toggleClass("fa-toggle-off")
+            .toggleClass("fa-toggle-on");
         new Poison();
         poisonInterval = setInterval(
             () => new Poison(),
@@ -27,8 +27,8 @@ function togglePoison() {
         );
     } else {
         $("#poisonLabel")
-            .removeClass("fa-toggle-on")
-            .addClass("fa-toggle-off");
+            .toggleClass("fa-toggle-on")
+            .toggleClass("fa-toggle-off");
         clearInterval(poisonInterval);
         poisonInterval = null;
         Body.objectsOfType.Poison = [];
@@ -41,15 +41,15 @@ function togglePause() {
     if ($("#pauseToggler").prop("checked")) {
         timer.pause();
         $("#pauseLabel")
-            .removeClass("far fa-stop-circle")
-            .addClass("fas fa-play-circle");
+            .toggleClass("far fa-stop-circle")
+            .toggleClass("fas fa-play-circle");
         clearInterval(poisonInterval);
         poisonInterval = null;
     } else {
         timer.start();
         $("#pauseLabel")
-            .removeClass("fas fa-play-circle")
-            .addClass("far fa-stop-circle");
+            .toggleClass("fas fa-play-circle")
+            .toggleClass("far fa-stop-circle");
         if ($("#poisonToggler").prop("checked")) {
             poisonInterval = setInterval(
                 () => new Poison(),
@@ -61,6 +61,9 @@ function togglePause() {
 
 function toggleMenu() {
     $("#menu").toggleClass("visible");
+    $("#hamburger")
+        .toggleClass("fas fa-bars")
+        .toggleClass("fas fa-times");
 }
 
 function restartSimulation() {
