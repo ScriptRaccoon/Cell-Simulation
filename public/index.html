@@ -12,39 +12,36 @@
     initial-scale=1; maximum-scale=1; user-scalable=0;"/>
 </head>
 <body>
-    <aside id="menu">
+    <menu id="menu">
         <div id="hamburger">
             <i class="fas fa-bars"></i>
         </div>
-        <div id="menuContent">
-            <ul>
-                <li>
-                    <div class="cell-icon cell"></div> <span id="cellInfo"></span>
-                </li>
-                <li>
-                    <div class="cell-icon food"></div> <span id="foodInfo"></span>
-                </li>
-                <li id="poisonStat">
-                    <div class="cell-icon poison"></div> <span id="poisonInfo"></span>
-                </li>
-                <br>
-                <li>
-                    Poison<label id="poisonLabel" for="poisonToggler" class="fas fa-toggle-off"></label>
+        <section id="menuContent">
+            <section id="menuStats">
+                    <div class="cell-icon cell"></div>
+                    <span id="cellInfo"></span>
+                    <div class="cell-icon food"></div>
+                    <span id="foodInfo"></span>
+                    <div class="cell-icon poison"></div>
+                    <span id="poisonInfo"></span> 
+            </section>
+            <section id="menuTable">                    
+                <label id="poisonLabel" for="poisonToggler" class="fas fa-toggle-off">
                     <input type="checkbox" id="poisonToggler">
-                </li>
-                <li>
-                    Pause&nbsp;<label id="pauseLabel" for="pauseToggler" class="far fa-stop-circle">
-                    </label>
+                </label>                
+                <span>Poison</span>
+                <label id="pauseLabel" for="pauseToggler" class="far fa-stop-circle">
                     <input type="checkbox" id="pauseToggler">
-                </li>
-                <li>
-                    Code&nbsp;&nbsp;&nbsp;<a href="https://github.com/ScriptRaccoon/cell-simulation" target="_blank" title="Code on GitHub">
-                        <i class="fab fa-github"></i>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </aside>
+                </label>               
+                <span>Pause</span>
+                <label id="restartBtn" class="fas fa-history"></label>
+                <span>Restart</span>
+                <a href="https://github.com/ScriptRaccoon/cell-simulation" target="_blank">
+                <i class="fab fa-github"></i></a>
+                <span>Code</span>
+            </section>
+        </section>
+    </menu>
     <canvas id="canvas" width="900" height="600"></canvas>
     <script src="./js/main.js" type="module"></script>
 </body>

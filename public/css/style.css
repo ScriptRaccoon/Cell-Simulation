@@ -5,6 +5,7 @@
     margin: 0;
     padding: 0;
 }
+
 body {
     min-height: 100vh;
     min-width: 100vw;
@@ -12,8 +13,20 @@ body {
     color: white;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
+
 canvas {
     display: block;
+}
+
+/* general */
+
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
 }
 
 /* menu */
@@ -23,17 +36,21 @@ canvas {
     z-index: 10;
     padding: 10px;
     color: #bbb;
-    font-size: 18px;
+    font-size: 20px;
+    border-bottom-right-radius: 10px;
 }
+
 #menuContent {
-    padding-top: 30px;
     display: none;
+    padding: 10px;
 }
+
 #menu.visible {
-    width: 150px;
+    width: 200px;
     background-color: rgba(25, 25, 25, 0.9);
     box-shadow: 0px 0px 10px #fff1;
 }
+
 #menu.visible #menuContent {
     display: block;
 }
@@ -41,53 +58,50 @@ canvas {
 /* hamburger */
 
 #hamburger {
-    font-size: 20px;
     cursor: pointer;
 }
+
 #hamburger:hover {
     color: white;
 }
 
-/* menu items */
+/* inputs and their labels */
 
-li {
-    list-style: none;
-    padding: 4px 0px;
-}
-
-/* links and labels */
-
-a {
-    text-decoration: none;
-    color: inherit;
-}
-label:hover,
-a:hover {
-    color: white;
-}
 label {
     cursor: pointer;
-    margin-left: 10px;
 }
+
+label:hover {
+    color: white;
+}
+
 input {
     display: none;
 }
 
-/* poison statistics */
+/* spans */
 
-#poisonStat {
-    display: none;
+#menu span {
+    user-select: none;
+}
+
+/* menu stats */
+
+#menuStats {
+    margin: 20px 0px;
+    display: grid;
+    gap: 5px;
+    grid-template-columns: 1fr 5fr;
 }
 
 /* cell icons */
 
 .cell-icon {
-    display: inline-block;
     width: 16px;
     height: 16px;
     border-radius: 50%;
-    margin-right: 5px;
     opacity: 0.8;
+    transform: translate(4px, 7px);
 }
 .cell-icon.cell {
     background: #3080ff;
@@ -97,4 +111,15 @@ input {
 }
 .cell-icon.poison {
     background: #ff0020;
+}
+
+/* menu table */
+
+#menuTable {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 1fr 5fr;
+}
+#menuTable label {
+    transform: translateY(4px);
 }

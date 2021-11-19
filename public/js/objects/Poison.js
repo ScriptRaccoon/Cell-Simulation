@@ -7,7 +7,8 @@ export class Poison extends Body {
     static frequency = 2000;
 
     static get number() {
-        return Body.objectsOfType.Poison.length;
+        return Body.objectsOfType.Poison.filter((p) => !p.neutralized)
+            .length;
     }
 
     static writeNumber() {
