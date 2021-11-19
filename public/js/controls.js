@@ -1,5 +1,5 @@
 import { clearCanvas } from "./canvas.js";
-import { startHistory } from "./history.js";
+import { history } from "./History.js";
 import { Body } from "./objects/Body.js";
 import { Cell } from "./objects/Cell.js";
 import { Food } from "./objects/Food.js";

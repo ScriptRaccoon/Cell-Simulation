@@ -13,6 +13,6 @@ export function adjustCanvas() {
     $(window).on("resize", resizeCanvas);
 }
 
-export function clearCanvas() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+export function clearCanvas(c = ctx) {
+    c.clearRect(0, 0, c.canvas.width, c.canvas.height);
 }

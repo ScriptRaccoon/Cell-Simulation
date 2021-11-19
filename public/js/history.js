@@ -1,35 +1,58 @@
+import { clearCanvas } from "./canvas.js";
 import { Cell } from "./objects/Cell.js";
 import { STATE } from "./state.js";
 
-const historyCanvas = $("#historyCanvas")[0];
-const hctx = historyCanvas.getContext("2d");
-hctx.strokeStyle = "#3080FF";
+class History {
+    constructor(source, canvas, color) {
+        this.source = source;
+        this.data = [];
+        this.delay = 5000;
+        this.interval = null;
+        this.canvas = canvas;
+        this.ctx = this.canvas.getContext("2d");
+        this.ctx.strokeStyle = color;
+        this.offset = 0;
+    }
 
-let offset = 0;
+    reset() {
+        clearCanvas(this.ctx);
+        this.adjustMargin();
+        this.data = [];
+        this.offset = 0;
+        clearInterval(this.interval);
+    }
 
-let history = [];
-let historyInterval = null;
-const step = 5000;
+    start() {
+        this.reset();
+        this.data.push(this.source());
+        this.interval = setInterval(() => {
+            if (STATE.PAUSED) return;
+            this.drawBar();
+            this.data.push(this.source());
+            if (this.data.length + this.offset >= 280) {
+                this.offset -= 50;
+                this.adjustMargin();
+            }
+        }, this.delay);
+    }
 
-export function startHistory() {
-    offset = 0;
-    historyCanvas.style.marginLeft = "0px";
-    history = [];
-    clearInterval(historyInterval);
-    history.push(Cell.number);
-    historyInterval = setInterval(() => {
-        if (STATE.PAUSED) return;
-        history.push(Cell.number);
-        hctx.beginPath();
-        hctx.moveTo(history.length, historyCanvas.height);
-        hctx.lineTo(
-            history.length,
-            historyCanvas.height - Cell.number / 10
+    adjustMargin() {
+        this.canvas.style.marginLeft = `${this.offset}px`;
+    }
+
+    drawBar() {
+        this.ctx.beginPath();
+        this.ctx.moveTo(this.data.length, this.canvas.height);
+        this.ctx.lineTo(
+            this.data.length,
+            this.canvas.height - this.source() / 10
         );
-        hctx.stroke();
-        if (history.length + offset >= 280) {
-            offset -= 50;
-            historyCanvas.style.marginLeft = `${offset}px`;
-        }
-    }, step);
+        this.ctx.stroke();
+    }
 }
+
+export const history = new History(
+    () => Cell.number,
+    $("#historyCanvas")[0],
+    "#3080FF"
+);

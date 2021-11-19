@@ -5,7 +5,7 @@ import { enableControls } from "./controls.js";
 import { Body } from "./objects/Body.js";
 import { Food } from "./objects/Food.js";
 import { Poison } from "./objects/Poison.js";
-import { startHistory } from "./history.js";
+import { history } from "./History.js";
 
 timer.update = (deltaTime) => {
     clearCanvas();
@@ -16,9 +16,9 @@ timer.update = (deltaTime) => {
 $(() => {
     adjustCanvas();
     enableControls();
-    startHistory();
     new Cell();
     new Food();
     Poison.writeNumber();
+    history.start();
     timer.start();
 });
