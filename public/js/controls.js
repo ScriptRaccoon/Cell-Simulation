@@ -1,8 +1,8 @@
 import { clearCanvas } from "./canvas.js";
+import { startHistory } from "./history.js";
 import { Body } from "./objects/Body.js";
 import { Cell } from "./objects/Cell.js";
 import { Food } from "./objects/Food.js";
-import { Immortal } from "./objects/Immortal.js";
 import { Poison } from "./objects/Poison.js";
 import { STATE } from "./state.js";
 import { timer } from "./Timer.js";
@@ -12,9 +12,17 @@ let poisonInterval = null;
 export function enableControls() {
     $("#poisonToggler, #pauseToggler").prop("checked", false);
     $("#poisonToggler").on("change", togglePoison);
+    $("#historyToggler").on("change", toggleHistory);
     $("#pauseToggler").on("change", togglePause);
     $("#hamburger").on("click", toggleMenu);
     $("#restartBtn").on("click", restartSimulation);
+}
+
+function toggleHistory() {
+    $("#historyLabel")
+        .toggleClass("fa-toggle-off")
+        .toggleClass("fa-toggle-on");
+    $("#historyCanvasContainer").toggle();
 }
 
 function togglePoison() {
@@ -76,6 +84,7 @@ function restartSimulation() {
     clearInterval(poisonInterval);
     poisonInterval = null;
     clearCanvas();
+    startHistory();
     Body.objectsOfType.Cell = [];
     Body.objectsOfType.Food = [];
     Body.objectsOfType.Helper = [];

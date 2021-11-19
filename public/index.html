@@ -41,6 +41,10 @@
                     <input type="checkbox" id="poisonToggler">
                 </label>                
                 <span>Poison</span>
+                <label id="historyLabel" for="historyToggler" class="fas fa-toggle-off">
+                    <input type="checkbox" id="historyToggler">
+                </label>                
+                <span>History</span>
                 <label id="pauseLabel" for="pauseToggler" class="far fa-stop-circle">
                     <input type="checkbox" id="pauseToggler">
                 </label>               
@@ -54,6 +58,9 @@
         </section>
     </menu>
     <canvas id="canvas" width="900" height="600"></canvas>
+    <div id="historyCanvasContainer">
+        <canvas id="historyCanvas" width="3000" height="100"></canvas>
+    </div>    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
     <script src="./js/main.js" type="module"></script>
 </body>
