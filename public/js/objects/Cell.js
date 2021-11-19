@@ -11,6 +11,8 @@ import { Food } from "./Food.js";
 import { Helper } from "./Helper.js";
 
 const cellInfo = document.getElementById("cellInfo");
+const immortalInfo = document.getElementById("immortalInfo");
+const immortalIcon = document.querySelector(".cell-icon.immortal");
 
 export class Cell extends Body {
     static maximalNumber = 1000;
@@ -20,6 +22,10 @@ export class Cell extends Body {
     static get number() {
         return Body.objectsOfType.Cell.length;
     }
+
+    static immortalChance = 0.005;
+
+    static immortalNumber = 0;
 
     static writeNumber() {
         cellInfo.innerText = Cell.number + " cells";
@@ -39,14 +45,31 @@ export class Cell extends Body {
         this.dieTime = null;
         this.poisoned = false;
         this.targetedFood = null;
+        this.isImmortal = false;
+        if (
+            Math.random() < Cell.immortalChance &&
+            poisonToggler.checked
+        ) {
+            this.isImmortal = true;
+            this.color = "#FFFFFF";
+            Cell.immortalNumber++;
+            immortalInfo.style.display = "block";
+            immortalIcon.style.display = "block";
+            immortalInfo.innerText =
+                Cell.immortalNumber + " immortal cells";
+        }
         Cell.writeNumber();
     }
 
     applyFeatures(deltaTime) {
         this.growUp(deltaTime);
         this.eatFood();
-        let avoiding = this.avoidPoison();
-        if (!avoiding) this.targetFood();
+        if (!this.isImmortal) {
+            let avoiding = this.avoidPoison();
+            if (!avoiding) this.targetFood();
+        } else {
+            this.targetFood();
+        }
         this.swim();
         if (this.poisoned) this.die(deltaTime);
     }

@@ -47,7 +47,7 @@ export class Poison extends Body {
             const cell = Body.objectsOfType.Cell.find(
                 (cell) => !cell.poisoned && this.touches(cell)
             );
-            if (cell) {
+            if (cell && !cell.isImmortal) {
                 this.size += 1;
                 cell.poisoned = true;
             }

@@ -67,6 +67,7 @@ export function enableControls() {
         Cell.writeNumber();
         Poison.writeNumber();
         Food.writeNumber();
+        Cell.immortalNumber = 0;
         new Cell();
         new Food();
     });

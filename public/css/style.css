@@ -46,7 +46,7 @@ a {
 }
 
 #menu.visible {
-    width: 200px;
+    width: 250px;
     background-color: rgba(25, 25, 25, 0.9);
     box-shadow: 0px 0px 10px #fff1;
 }
@@ -111,6 +111,13 @@ input {
 }
 .cell-icon.poison {
     background: #ff0020;
+}
+.cell-icon.immortal {
+    display: none;
+    background: white;
+}
+#immortalInfo {
+    display: none;
 }
 
 /* menu table */
