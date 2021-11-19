@@ -10,7 +10,10 @@ import { timer } from "./Timer.js";
 let poisonInterval = null;
 
 export function enableControls() {
-    $("#poisonToggler, #pauseToggler").prop("checked", false);
+    $("#poisonToggler, #pauseToggler, #historyToggler").prop(
+        "checked",
+        false
+    );
     $("#poisonToggler").on("change", togglePoison);
     $("#historyToggler").on("change", toggleHistory);
     $("#pauseToggler").on("change", togglePause);

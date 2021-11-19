@@ -96,7 +96,7 @@ export class Body {
 
     getClosestOfType(type) {
         return Body.objectsOfType[type]
-            .filter((b) => b.active && b.isGrownUp)
+            .filter((b) => b.active)
             .sort(
                 (b, c) =>
                     distance(b.pos, this.pos) -
