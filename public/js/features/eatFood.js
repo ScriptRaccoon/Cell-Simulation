@@ -3,7 +3,7 @@ import { Food } from "../objects/Food.js";
 import { reproduceCell } from "./reproduceCell.js";
 
 export const eatFood = (body) => {
-    if (body.isGrownUp) {
+    if (body.isGrownUp && !body.avoiding) {
         const food = Body.objectsOfType.Food.find(
             (food) => body.touches(food) && food.isGrownUp
         );
