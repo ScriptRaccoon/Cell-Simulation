@@ -19,7 +19,7 @@ export class Cell extends Body {
         $("#cellInfo").text(`${Cell.number} cells`);
     }
 
-    static immortalChance = 0.005; // 0.005
+    static immortalChance = 0.002; // 0.005
     static helperChance = 0.1; // 0.1
 
     constructor(pos, vel) {

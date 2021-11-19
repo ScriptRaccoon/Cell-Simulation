@@ -17,9 +17,9 @@ export class Immortal extends Body {
             .text(`${Immortal.number} immortables`);
     }
     constructor(pos, vel) {
-        super(pos, { x: 10, y: 10 });
+        super(pos, vel);
         this.color = "#FFFFFF";
-        this.alpha = 0.5;
+        this.alpha = 0.7;
         Immortal.writeNumber();
         this.maxSpeed = randInt(200, 350);
         this.maxForce = randInt(30, 60);
@@ -30,7 +30,6 @@ export class Immortal extends Body {
                 length: randInt(40, 50),
                 amplitude: rand(Math.PI / 10, Math.PI / 8),
             }),
-            eatFood,
         ];
     }
 }
