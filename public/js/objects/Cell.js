@@ -5,7 +5,6 @@ import {
     scale,
     randInt,
     distance,
-    randEl,
 } from "../utils.js";
 import { Body } from "./Body.js";
 import { Food } from "./Food.js";
@@ -71,27 +70,13 @@ export class Cell extends Body {
         }
     }
 
-    avoidPoison() {
-        let avoiding = false;
-        for (const poison of Body.objectsOfType.Poison) {
-            if (
-                !poison.neutralized &&
-                distance(this.pos, poison.pos) <=
-                    this.prudence * (this.size + poison.size)
-            ) {
-                avoiding = true;
-                const poisonForce = difference(this.pos, poison.pos);
-                const antiForce = scale(poisonForce, -1);
-                this.applyForce(antiForce);
-            }
-        }
-        return avoiding;
-    }
-
     targetFood() {
-        if (!this.targetedFood || this.targetedFood.eaten) {
-            this.targetedFood = this.getClosestOfType("Food");
+        if (this.targetedFood?.eaten) {
+            this.targetedFood = null;
         }
+
+        this.targetedFood = this.getClosestOfType("Food");
+
         if (this.targetedFood) {
             const foodForce = difference(
                 this.pos,
@@ -122,6 +107,23 @@ export class Cell extends Body {
                 new Cell(this.pos.x, this.pos.y).vel = this.vel;
             }
         }
+    }
+
+    avoidPoison() {
+        let avoiding = false;
+        for (const poison of Body.objectsOfType.Poison) {
+            if (
+                !poison.neutralized &&
+                distance(this.pos, poison.pos) <=
+                    this.prudence * (this.size + poison.size)
+            ) {
+                avoiding = true;
+                const poisonForce = difference(this.pos, poison.pos);
+                const antiForce = scale(poisonForce, -1);
+                this.applyForce(antiForce);
+            }
+        }
+        return avoiding;
     }
 
     die(deltaTime) {

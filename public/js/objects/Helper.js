@@ -1,4 +1,4 @@
-import { randEl, difference, distance } from "../utils.js";
+import { difference } from "../utils.js";
 import { Body } from "./Body.js";
 
 export class Helper extends Body {

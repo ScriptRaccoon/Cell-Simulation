@@ -40,7 +40,7 @@ export class Body {
     }
 
     touches(body) {
-        return distance(this.pos, body.pos) <= this.size + body.size;
+        return distance(this.pos, body.pos) < this.size + body.size;
     }
 
     growUp(deltaTime) {
