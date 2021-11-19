@@ -4,7 +4,7 @@ import { randInt } from "../utils.js";
 const foodInfo = document.getElementById("foodInfo");
 
 export class Food extends Body {
-    static maximalNumber = 3;
+    static maximalNumber = 4;
 
     static get number() {
         return Body.objectsOfType.Food.length;
