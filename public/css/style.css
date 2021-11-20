@@ -96,6 +96,11 @@ input {
 
 /* cell icons */
 
+.cell-icon,
+.stat {
+    display: none;
+}
+
 .cell-icon {
     width: 16px;
     height: 16px;
@@ -113,11 +118,13 @@ input {
     background: #ff0020;
 }
 .cell-icon.immortal {
-    display: none;
     background: white;
 }
-#immortalInfo {
-    display: none;
+.cell-icon.helper {
+    background: #50ff50;
+}
+.cell-icon.blackhole {
+    background: black;
 }
 
 /* menu table */

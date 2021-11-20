@@ -9,18 +9,10 @@ import { BlackHole } from "./BlackHole.js";
 export class Poison extends Body {
     static frequency = 2000;
 
-    static get number() {
-        return Body.objectsOfType.Poison.filter((p) => p.active)
-            .length;
-    }
-
-    static writeNumber() {
-        $("#poisonInfo").text(`${Poison.number} poisons`);
-    }
-
     static get nextSize() {
-        return Cell.number < 900 || Math.random() < 0.5
-            ? 20 + Math.floor(Cell.number / 20)
+        return population.getNumber("Cell") < 900 ||
+            Math.random() < 0.5
+            ? 20 + Math.floor(population.getNumber("Cell") / 20)
             : 200;
     }
 

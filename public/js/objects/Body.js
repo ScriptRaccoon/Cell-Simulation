@@ -1,24 +1,10 @@
 import { canvas, ctx, threshold } from "../canvas.js";
 import { randInt, distance, limit } from "../utils.js";
+import { population } from "../Population.js";
 
 export class Body {
-    static objectsOfType = {
-        BlackHole: [],
-        Body: [],
-        Poison: [],
-        Cell: [],
-        Food: [],
-        Helper: [],
-        Immortal: [],
-    };
-
-    static get allObjects() {
-        return Object.values(Body.objectsOfType).flat();
-    }
-
     constructor(pos, vel) {
         this.type = this.constructor.name;
-        Body.objectsOfType[this.type].push(this);
         this.pos = pos || {
             x: randInt(threshold, canvas.width - threshold),
             y: randInt(threshold, canvas.height - threshold),
@@ -33,12 +19,7 @@ export class Body {
         this.isGrownUp = false;
         this.active = true;
         this.features = [];
-    }
-
-    remove() {
-        Body.objectsOfType[this.type] = Body.objectsOfType[
-            this.type
-        ].filter((body) => body != this);
+        population.add(this);
     }
 
     touches(body) {
@@ -54,12 +35,6 @@ export class Body {
         ctx.closePath();
     }
 
-    static drawAll() {
-        for (const body of Body.allObjects) {
-            body.draw();
-        }
-    }
-
     updatePosition(deltaTime) {
         this.pos.x += this.vel.x * deltaTime;
         this.pos.y += this.vel.y * deltaTime;
@@ -71,12 +46,6 @@ export class Body {
             feature(this, deltaTime);
         }
         this.updatePosition(deltaTime);
-    }
-
-    static updateAll(deltaTime) {
-        for (const body of Body.allObjects) {
-            body.update(deltaTime);
-        }
     }
 
     applyForce(force) {
@@ -93,15 +62,5 @@ export class Body {
             this.pos.y - this.size > factor * canvas.height ||
             this.pos.y < -this.size - (factor - 1) * canvas.height
         );
-    }
-
-    getClosestOfType(type) {
-        return Body.objectsOfType[type]
-            .filter((b) => b.active)
-            .sort(
-                (b, c) =>
-                    distance(b.pos, this.pos) -
-                    distance(c.pos, this.pos)
-            )[0];
     }
 }

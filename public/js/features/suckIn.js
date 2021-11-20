@@ -1,25 +1,11 @@
-import { Body } from "../objects/Body.js";
+import { population } from "../Population.js";
 import { difference, distance, scale } from "../utils.js";
-
-export const suckInAll =
-    ({ range, maxSize }) =>
-    (body) => {
-        for (const type of [
-            "Cell",
-            "Food",
-            "Helper",
-            "Immortal",
-            "Poison",
-        ]) {
-            suckIn({ range, maxSize, type })(body);
-        }
-    };
 
 export const suckIn =
     ({ range, maxSize, type }) =>
     (body) => {
         if (body.collapsing) return;
-        for (const other of Body.objectsOfType[type]) {
+        for (const other of population.get(type)) {
             if (
                 distance(body.pos, other.pos) <
                 range + body.size + other.size

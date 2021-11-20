@@ -1,3 +1,6 @@
+import { clearCanvas } from "./canvas.js";
+import { population } from "./Population.js";
+
 class Timer {
     constructor(deltaTime) {
         let accumulatedTime = 0;

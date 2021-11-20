@@ -1,11 +1,11 @@
 import { Body } from "../objects/Body.js";
+import { population } from "../Population.js";
 import { difference, scale, distance } from "../utils.js";
-
 export const avoid =
     ({ factor, type }) =>
     (body) => {
         body.avoiding = false;
-        for (const other of Body.objectsOfType[type]) {
+        for (const other of population.get(type)) {
             if (
                 other.active &&
                 distance(body.pos, other.pos) <=

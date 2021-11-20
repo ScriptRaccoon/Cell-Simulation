@@ -1,5 +1,5 @@
 import { clearCanvas } from "./canvas.js";
-import { Cell } from "./objects/Cell.js";
+import { population } from "./Population.js";
 import { STATE } from "./state.js";
 
 class History {
@@ -52,7 +52,7 @@ class History {
 }
 
 export const history = new History(
-    () => Cell.number,
+    () => population.getNumber("Cell"),
     $("#historyCanvas")[0],
     "#3080FF"
 );

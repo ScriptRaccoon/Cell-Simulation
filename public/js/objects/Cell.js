@@ -12,16 +12,8 @@ import { collapse } from "../features/collapse.js";
 export class Cell extends Body {
     static maximalNumber = 1000;
 
-    static get number() {
-        return Body.objectsOfType.Cell.length;
-    }
-
-    static writeNumber() {
-        $("#cellInfo").text(`${Cell.number} cells`);
-    }
-
-    static immortalChance = 0.002; // 0.005
-    static helperChance = 0.1; // 0.1
+    static immortalChance = 0.002;
+    static helperChance = 0.1;
 
     constructor(pos, vel) {
         super(pos, vel);
@@ -29,7 +21,6 @@ export class Cell extends Body {
         this.color = "#3080FF";
         this.maxSpeed = randInt(200, 350);
         this.maxForce = randInt(30, 60);
-        Cell.writeNumber();
         this.features = [
             growUp({ duration: 1, size: 10 }),
             targetClosest("Food"),

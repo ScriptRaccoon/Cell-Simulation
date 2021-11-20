@@ -1,5 +1,5 @@
-import { Cell } from "../objects/Cell.js";
 import { Food } from "../objects/Food.js";
+import { population } from "../Population.js";
 
 export const die = (color) => (cell, deltaTime) => {
     if (!cell.poisoned) return;
@@ -10,8 +10,11 @@ export const die = (color) => (cell, deltaTime) => {
     cell.alpha -= ((cell.time - cell.dieTime) * deltaTime) / 100;
     if (cell.alpha <= 0) {
         cell.remove();
-        Cell.writeNumber();
-        if (Math.random() < 0.1 && Food.number < Food.maximalNumber) {
+        if (
+            Math.random() < 0.1 &&
+            population.getNumber("Food") <
+                population.getMaximum("Food")
+        ) {
             new Food();
         }
     }
