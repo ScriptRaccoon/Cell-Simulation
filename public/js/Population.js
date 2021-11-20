@@ -4,8 +4,9 @@ import { Cell } from "./objects/Cell.js";
 import { Food } from "./objects/Food.js";
 
 class Population {
-    constructor(types) {
+    constructor(types, phaseTitles) {
         this.types = types;
+        this.phaseTitles = phaseTitles;
         this.list = {};
         for (const type of types) {
             this.list[type] = [];
@@ -32,6 +33,7 @@ class Population {
             $(`#${type.toLowerCase()}Info`).show();
         }
         this.writeNumber(type);
+        this.writePhase();
     }
     writeNumber(type) {
         $(`#${type.toLowerCase()}Info`).text(
@@ -56,6 +58,7 @@ class Population {
         const type = body.type;
         this.list[type] = this.list[type].filter((x) => x != body);
         this.writeNumber(type);
+        this.writePhase();
     }
     getClosestTo(body, type) {
         return this.list[type]
@@ -75,17 +78,28 @@ class Population {
         new Cell();
         new Food();
     }
+    get phase() {
+        const cellNumber = this.getNumber("Cell");
+        return Math.floor(cellNumber / 100);
+    }
+    writePhase() {
+        $("#phaseNumber").text(this.phase);
+        $("#phaseTitle").text(this.phaseTitles[this.phase] || "");
+    }
 }
 
-export const population = new Population([
-    "BlackHole",
-    "Body",
-    "Poison",
-    "Cell",
-    "Food",
-    "Helper",
-    "Immortal",
-]);
+export const population = new Population(
+    [
+        "BlackHole",
+        "Body",
+        "Poison",
+        "Cell",
+        "Food",
+        "Helper",
+        "Immortal",
+    ],
+    ["Looking for food", "Group dynamics", "Poison alert!"]
+);
 
 population.setMaximum("Food", 4);
 population.setMaximum("Cell", 1000);

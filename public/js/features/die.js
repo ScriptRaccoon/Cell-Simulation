@@ -9,7 +9,8 @@ export const die = (color) => (cell, deltaTime) => {
     }
     cell.alpha -= ((cell.time - cell.dieTime) * deltaTime) / 100;
     if (cell.alpha <= 0) {
-        cell.remove();
+        population.remove(cell);
+
         if (
             Math.random() < 0.1 &&
             population.getNumber("Food") <

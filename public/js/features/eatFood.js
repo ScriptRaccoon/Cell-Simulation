@@ -21,6 +21,16 @@ export const eatFood = (body) => {
                     new Food();
                 }
             }, 300);
+            setTimeout(() => {
+                if (
+                    population.phase >= 1 &&
+                    Math.random() < 0.05 &&
+                    population.getNumber("Food") <
+                        population.getMaximum("Food")
+                ) {
+                    new Food();
+                }
+            }, 500);
         }
     }
 };

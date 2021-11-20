@@ -1,11 +1,13 @@
+import { population } from "../Population.js";
+
 export const removeIfOutside = (body) => {
     if (body.isOutside()) {
-        body.remove();
+        population.remove(body);
     }
 };
 
 export const removeIfFarOutside = (body) => {
     if (body.isOutside(2)) {
-        body.remove();
+        population.remove(body);
     }
 };

@@ -159,3 +159,13 @@ input {
     transition: margin-left 2s ease-in-out;
     display: block;
 }
+
+/* phase */
+
+#phaseDisplay {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    margin: 10px 0px 20px 0px;
+    font-weight: bold;
+    font-size: 16px;
+    color: orange;
+}
