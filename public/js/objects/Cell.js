@@ -8,6 +8,7 @@ import { rand, randInt } from "../utils.js";
 import { Body } from "./Body.js";
 import { avoid } from "../features/avoid.js";
 import { collapse } from "../features/collapse.js";
+import { removeIfFarOutside } from "../features/removeIfOutside.js";
 
 export class Cell extends Body {
     static maximalNumber = 1000;
@@ -32,6 +33,7 @@ export class Cell extends Body {
             eatFood,
             die("#FF80FF"),
             collapse,
+            removeIfFarOutside,
         ];
     }
 }

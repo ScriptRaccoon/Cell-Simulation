@@ -11,14 +11,11 @@ export const eatFood = (body) => {
             population.remove(food);
             body.size += 1;
             body.maxSpeed /= 1.1;
-            population.reproduce({ ...body.pos }, { ...body.vel });
             setTimeout(() => {
-                if (
-                    population.getNumber("Food") <
-                    population.getMaximum("Food")
-                ) {
-                    new Food();
-                }
+                population.reproduce(
+                    { ...body.pos },
+                    { ...body.vel }
+                );
             }, 300);
         }
     }

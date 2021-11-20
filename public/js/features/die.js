@@ -1,4 +1,3 @@
-import { Food } from "../objects/Food.js";
 import { population } from "../myPopulation.js";
 
 export const die = (color) => (cell, deltaTime) => {
@@ -10,13 +9,5 @@ export const die = (color) => (cell, deltaTime) => {
     cell.alpha -= ((cell.time - cell.dieTime) * deltaTime) / 100;
     if (cell.alpha <= 0) {
         population.remove(cell);
-
-        if (
-            Math.random() < 0.1 &&
-            population.getNumber("Food") <
-                population.getMaximum("Food")
-        ) {
-            new Food();
-        }
     }
 };

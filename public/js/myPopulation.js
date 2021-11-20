@@ -6,8 +6,6 @@ import { Poison } from "./objects/Poison.js";
 import { BlackHole } from "./objects/BlackHole.js";
 import { Population } from "./Population.js";
 
-const DEV = false;
-
 export const population = new Population({
     types: [
         "BlackHole",
@@ -18,14 +16,18 @@ export const population = new Population({
         "Helper",
         "Immortal",
     ],
-    maximums: { Food: 4, Cell: 1000 },
     init: () => {
         new Food();
         new Cell();
     },
     phase: () => {
         const cellNumber = population.getNumber("Cell");
-        return Math.min(5, Math.floor(cellNumber / (DEV ? 10 : 100)));
+        const immortalNumber = population.getNumber("Immortal");
+        if (immortalNumber >= 100) {
+            return 6;
+        } else {
+            return Math.min(5, Math.floor(cellNumber / 100));
+        }
     },
     phaseTitles: [
         "Looking for food",
@@ -34,34 +36,37 @@ export const population = new Population({
         "Helpers arrive",
         "I will survive",
         "Don't get trapped!",
+        "Extinction",
     ],
     reproduce: (pos, vel) => {
         const phase = population.phase();
-        if (phase >= 2 && phase <= 4 && Math.random() < 0.2) {
-            new Poison();
+
+        // food
+        if (phase <= 5 && population.getNumber("Food") < 4) {
+            new Food();
         }
         if (
             phase >= 1 &&
-            Math.random() < 0.05 &&
-            population.getNumber("Food") <
-                population.getMaximum("Food")
+            phase <= 5 &&
+            Math.random() < 0.1 &&
+            population.getNumber("Food") < 4
         ) {
             new Food();
         }
-        if (phase >= 5 && Math.random() < 0.02) {
+        // opponents
+        if (phase >= 2 && phase <= 4 && Math.random() < 0.2) {
+            new Poison();
+        } else if (phase == 5 && Math.random() < 0.02) {
             new BlackHole();
-        } else if (phase >= 4 && Math.random() < 0.1) {
+        } else if (phase == 6 && Math.random() < 0.1) {
+            new BlackHole();
+        }
+        // friends
+        if (phase >= 4 && Math.random() < 0.1) {
             new Immortal(pos, vel);
-        } else if (
-            population.phase >= 3 &&
-            population.phase <= 4 &&
-            Math.random() < 0.1
-        ) {
+        } else if (phase >= 3 && phase <= 4 && Math.random() < 0.1) {
             new Helper(pos, vel);
-        } else if (
-            population.getNumber("Cell") <
-            population.getMaximum("Cell")
-        ) {
+        } else if (population.getNumber("Cell") < 1000) {
             new Cell(pos, vel);
         }
     },

@@ -2,27 +2,16 @@ import { clearCanvas } from "./canvas.js";
 import { distance } from "./utils.js";
 
 export class Population {
-    constructor({
-        types,
-        maximums,
-        init,
-        phase,
-        phaseTitles,
-        reproduce,
-    }) {
+    constructor({ types, init, phase, phaseTitles, reproduce }) {
         this.types = types || [];
         this.list = {};
         for (const type of types) {
             this.list[type] = [];
         }
-        this.maximums = maximums || [];
         this.init = init || (() => {});
         this.phase = phase || (() => {});
         this.phaseTitles = phaseTitles || [];
         this.reproduce = reproduce || (() => {});
-    }
-    getMaximum(type) {
-        return this.maximums[type];
     }
     get(type) {
         return this.list[type];
