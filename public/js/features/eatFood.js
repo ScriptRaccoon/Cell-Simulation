@@ -1,6 +1,5 @@
 import { Food } from "../objects/Food.js";
 import { population } from "../Population.js";
-import { reproduceCell } from "./reproduceCell.js";
 
 export const eatFood = (body) => {
     if (body.isGrownUp) {
@@ -12,7 +11,7 @@ export const eatFood = (body) => {
             population.remove(food);
             body.size += 1;
             body.maxSpeed /= 1.1;
-            reproduceCell({ ...body.pos }, { ...body.vel });
+            population.reproduce({ ...body.pos }, { ...body.vel });
             setTimeout(() => {
                 if (
                     population.getNumber("Food") <

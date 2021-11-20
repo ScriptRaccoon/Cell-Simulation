@@ -14,7 +14,7 @@ export class Poison extends Body {
         this.features = [
             growUp({
                 duration: 0.3,
-                size: 20,
+                size: randInt(20, 50),
             }),
             poisonCells,
             removeIfOutside,
