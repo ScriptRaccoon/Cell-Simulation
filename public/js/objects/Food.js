@@ -1,6 +1,7 @@
 import { Body } from "./Body.js";
 import { randInt } from "../utils.js";
 import { growUp } from "../features/growUp.js";
+import { removeIfFarOutside } from "../features/removeIfOutside.js";
 
 export class Food extends Body {
     static maximalNumber = 4;
@@ -20,6 +21,9 @@ export class Food extends Body {
         });
         this.color = "#FFA030";
         Food.writeNumber();
-        this.features = [growUp({ duration: 0.8, size: 15 })];
+        this.features = [
+            growUp({ duration: 0.8, size: 15 }),
+            removeIfFarOutside,
+        ];
     }
 }

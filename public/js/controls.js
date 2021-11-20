@@ -87,12 +87,14 @@ function restartSimulation() {
     clearInterval(poisonInterval);
     poisonInterval = null;
     clearCanvas();
-    startHistory();
+    history.start();
+    Body.objectsOfType.Body = [];
     Body.objectsOfType.Cell = [];
     Body.objectsOfType.Food = [];
     Body.objectsOfType.Helper = [];
     Body.objectsOfType.Poison = [];
     Body.objectsOfType.Immortal = [];
+    Body.objectsOfType.BlackHole = [];
     Cell.writeNumber();
     Poison.writeNumber();
     Food.writeNumber();

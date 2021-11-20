@@ -7,6 +7,7 @@ import { rand, randInt } from "../utils.js";
 
 import { Body } from "./Body.js";
 import { avoid } from "../features/avoid.js";
+import { collapse } from "../features/collapse.js";
 
 export class Cell extends Body {
     static maximalNumber = 1000;
@@ -39,6 +40,7 @@ export class Cell extends Body {
             avoid({ factor: randInt(2, 8), type: "Poison" }),
             eatFood,
             die("#FF80FF"),
+            collapse,
         ];
     }
 }

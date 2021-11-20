@@ -4,6 +4,7 @@ import { Cell } from "./Cell.js";
 import { growUp } from "../features/growUp.js";
 import { poisonCells } from "../features/poisonCells.js";
 import { removeIfOutside } from "../features/removeIfOutside.js";
+import { BlackHole } from "./BlackHole.js";
 
 export class Poison extends Body {
     static frequency = 2000;
@@ -38,5 +39,6 @@ export class Poison extends Body {
             removeIfOutside,
         ];
         Poison.writeNumber();
+        if (Math.random() < BlackHole.frequency) new BlackHole();
     }
 }

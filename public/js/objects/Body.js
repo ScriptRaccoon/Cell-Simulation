@@ -3,9 +3,10 @@ import { randInt, distance, limit } from "../utils.js";
 
 export class Body {
     static objectsOfType = {
+        BlackHole: [],
         Body: [],
-        Cell: [],
         Poison: [],
+        Cell: [],
         Food: [],
         Helper: [],
         Immortal: [],
@@ -85,12 +86,12 @@ export class Body {
         this.vel = limit(this.vel, this.maxSpeed);
     }
 
-    get isOutside() {
+    isOutside(factor = 1) {
         return (
-            this.pos.x - this.size > canvas.width ||
-            this.pos.x < -this.size ||
-            this.pos.y - this.size > canvas.height ||
-            this.pos.y < -this.size
+            this.pos.x - this.size > factor * canvas.width ||
+            this.pos.x < -this.size - (factor - 1) * canvas.width ||
+            this.pos.y - this.size > factor * canvas.height ||
+            this.pos.y < -this.size - (factor - 1) * canvas.height
         );
     }
 
