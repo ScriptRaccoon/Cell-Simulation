@@ -1,6 +1,6 @@
 import { canvas, ctx, threshold } from "../canvas.js";
 import { randInt, distance, limit } from "../utils.js";
-import { population } from "../Population.js";
+import { population } from "../myPopulation.js";
 
 export class Body {
     constructor(pos, vel) {

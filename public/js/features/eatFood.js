@@ -1,5 +1,5 @@
 import { Food } from "../objects/Food.js";
-import { population } from "../Population.js";
+import { population } from "../myPopulation.js";
 
 export const eatFood = (body) => {
     if (body.isGrownUp) {
@@ -20,16 +20,6 @@ export const eatFood = (body) => {
                     new Food();
                 }
             }, 300);
-            setTimeout(() => {
-                if (
-                    population.phase >= 1 &&
-                    Math.random() < 0.05 &&
-                    population.getNumber("Food") <
-                        population.getMaximum("Food")
-                ) {
-                    new Food();
-                }
-            }, 500);
         }
     }
 };

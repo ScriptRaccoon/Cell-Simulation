@@ -1,5 +1,5 @@
 import { history } from "./History.js";
-import { population } from "./Population.js";
+import { population } from "./myPopulation.js";
 import { STATE } from "./state.js";
 import { timer } from "./Timer.js";
 

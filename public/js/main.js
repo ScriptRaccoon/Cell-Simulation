@@ -2,7 +2,7 @@ import { adjustCanvas, clearCanvas } from "./canvas.js";
 import { timer } from "./Timer.js";
 import { enableControls } from "./controls.js";
 import { history } from "./History.js";
-import { population } from "./Population.js";
+import { population } from "./myPopulation.js";
 
 timer.update = (deltaTime) => {
     clearCanvas();

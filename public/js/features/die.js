@@ -1,5 +1,5 @@
 import { Food } from "../objects/Food.js";
-import { population } from "../Population.js";
+import { population } from "../myPopulation.js";
 
 export const die = (color) => (cell, deltaTime) => {
     if (!cell.poisoned) return;

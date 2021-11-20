@@ -1,5 +1,5 @@
 import { Body } from "../objects/Body.js";
-import { population } from "../Population.js";
+import { population } from "../myPopulation.js";
 import { difference, scale, distance } from "../utils.js";
 export const avoid =
     ({ factor, type }) =>

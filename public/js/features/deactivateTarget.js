@@ -1,4 +1,4 @@
-import { population } from "../Population.js";
+import { population } from "../myPopulation.js";
 
 export const deactivateTarget = (body) => {
     if (body.target && body.touches(body.target)) {

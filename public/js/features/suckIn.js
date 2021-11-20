@@ -1,4 +1,4 @@
-import { population } from "../Population.js";
+import { population } from "../myPopulation.js";
 import { difference, distance, scale } from "../utils.js";
 
 export const suckIn =

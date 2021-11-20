@@ -1,4 +1,4 @@
-import { population } from "../Population.js";
+import { population } from "../myPopulation.js";
 import { difference } from "../utils.js";
 
 export const targetClosest = (type) => (body) => {

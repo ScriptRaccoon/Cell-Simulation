@@ -1,5 +1,5 @@
 import { clearCanvas } from "./canvas.js";
-import { population } from "./Population.js";
+import { population } from "./myPopulation.js";
 import { STATE } from "./state.js";
 
 class History {
