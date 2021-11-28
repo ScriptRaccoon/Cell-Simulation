@@ -23,22 +23,22 @@ export const population = new Population({
         "Immortal",
     ],
     init: () => {
-        // setup to get to phase 6.
+        // setup to get to phase 7.
+        new Jumper();
+        for (let i = 1; i <= 198; i++) {
+            new Immortal();
+        }
+
+        // orignal setup
         // new Food();
-        // new Food();
-        // new Food();
-        // for (let i = 1; i <= 50; i++) {
-        //     new Cell();
-        // }
-        // for (let i = 1; i <= 100; i++) {
-        //     new Immortal();
-        // }
-        new Food();
-        new Cell();
+        // new Cell();
     },
     phase: () => {
         const cellNumber = population.getNumber("Cell");
         const immortalNumber = population.getNumber("Immortal");
+        if (immortalNumber >= 200) {
+            return 8;
+        }
         if (immortalNumber >= 100 && cellNumber == 0) {
             return 7;
         } else if (immortalNumber >= 100) {
@@ -56,12 +56,20 @@ export const population = new Population({
         "Don't get trapped!",
         "Extinction",
         "Takeover",
+        "Jumpin' all over",
     ],
     reproduce: (pos, vel) => {
         const phase = population.phase();
-        if (phase == 7) {
+        if (phase >= 7) {
             new Jumper();
             new Immortal();
+        }
+        if (
+            phase >= 8 &&
+            Math.random() < 0.1 &&
+            population.getNumber("Jumper") < 10
+        ) {
+            new Jumper();
         }
         if (phase <= 6 && population.getNumber("Food") < 4) {
             new Food();
