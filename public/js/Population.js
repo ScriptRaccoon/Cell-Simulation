@@ -2,7 +2,15 @@ import { clearCanvas } from "./canvas.js";
 import { distance } from "./utils.js";
 
 export class Population {
-    constructor({ types, init, phase, phaseTitles, reproduce }) {
+    constructor({
+        types,
+        init,
+        phase,
+        phaseTitles,
+        reproduce,
+        status,
+        onDie,
+    }) {
         this.types = types || [];
         this.list = {};
         for (const type of types) {
@@ -12,6 +20,8 @@ export class Population {
         this.phase = phase || (() => {});
         this.phaseTitles = phaseTitles || [];
         this.reproduce = reproduce || (() => {});
+        this.status = status || {};
+        this.onDie = onDie || (() => {});
     }
     get(type) {
         return this.list[type];

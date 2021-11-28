@@ -15,10 +15,10 @@ export class BlackHole extends Body {
             growUp({ duration: 1, size: randInt(10, 20) }),
             suckIn({
                 range: randInt(50, 100),
-                maxSize: randInt(200, 300),
+                maxSize: randInt(200, 500),
                 type: "Cell",
             }),
-            collapse,
+            collapse({ maxAge: randInt(1000, 2000) }),
             removeIfOutside,
         ];
     }

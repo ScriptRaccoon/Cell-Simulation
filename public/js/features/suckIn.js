@@ -12,20 +12,19 @@ export const suckIn =
             ) {
                 const force = scale(
                     difference(other.pos, body.pos),
-                    10
+                    100
                 );
                 other.applyForce(force);
+            }
+            if (body.touches(other)) {
+                body.size += 0.1;
+            }
+        }
+        if (body.size >= maxSize) {
+            body.collapsing = true;
+            for (const other of population.get(type)) {
                 if (body.touches(other)) {
-                    if (!other.suckedIn) {
-                        other.suckedIn = true;
-                        body.size++;
-                    }
-                    if (body.size >= maxSize) {
-                        body.collapsing = true;
-                        other.collapsing = true;
-                    }
-                } else {
-                    other.suckedIn = false;
+                    other.collapsing = true;
                 }
             }
         }

@@ -12,7 +12,7 @@ export function distance(posA, posB) {
     );
 }
 
-function norm(pos) {
+export function norm(pos) {
     return distance(pos, { x: 0, y: 0 });
 }
 

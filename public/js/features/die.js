@@ -9,5 +9,6 @@ export const die = (color) => (cell, deltaTime) => {
     cell.alpha -= ((cell.time - cell.dieTime) * deltaTime) / 100;
     if (cell.alpha <= 0) {
         population.remove(cell);
+        population.onDie();
     }
 };

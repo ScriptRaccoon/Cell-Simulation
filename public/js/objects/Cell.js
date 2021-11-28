@@ -11,11 +11,6 @@ import { collapse } from "../features/collapse.js";
 import { removeIfFarOutside } from "../features/removeIfOutside.js";
 
 export class Cell extends Body {
-    static maximalNumber = 1000;
-
-    static immortalChance = 0.002;
-    static helperChance = 0.1;
-
     constructor(pos, vel) {
         super(pos, vel);
         this.alpha = 0.5;
@@ -32,7 +27,7 @@ export class Cell extends Body {
             avoid({ factor: randInt(2, 8), type: "Poison" }),
             eatFood,
             die("#FF80FF"),
-            collapse,
+            collapse({ maxAge: null }),
             removeIfFarOutside,
         ];
     }

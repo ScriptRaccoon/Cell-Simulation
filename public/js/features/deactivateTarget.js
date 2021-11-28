@@ -7,4 +7,3 @@ export const deactivateTarget = (body) => {
         body.target.alpha = 0.15;
     }
 };
-// can be used in eatFood.js

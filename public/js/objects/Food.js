@@ -4,8 +4,6 @@ import { growUp } from "../features/growUp.js";
 import { removeIfFarOutside } from "../features/removeIfOutside.js";
 
 export class Food extends Body {
-    static maximalNumber = 4;
-
     constructor(pos) {
         super(pos, {
             x: randInt(-50, 50),
