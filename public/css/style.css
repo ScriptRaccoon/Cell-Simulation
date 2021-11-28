@@ -130,6 +130,10 @@ input {
     background: #bb00ff;
 }
 
+.cell-icon.meditator {
+    background: #80300e;
+}
+
 /* menu table */
 
 #menuTable {

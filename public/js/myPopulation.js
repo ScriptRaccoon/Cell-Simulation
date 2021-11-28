@@ -6,6 +6,7 @@ import { Poison } from "./objects/Poison.js";
 import { BlackHole } from "./objects/BlackHole.js";
 import { Population } from "./Population.js";
 import { Jumper } from "./objects/Jumper.js";
+import { Meditator } from "./objects/Meditator.js";
 
 export const population = new Population({
     status: {
@@ -19,23 +20,20 @@ export const population = new Population({
         "Cell",
         "Food",
         "Helper",
+        "Meditator",
         "Jumper",
         "Immortal",
     ],
     init: () => {
-        // setup to get to phase 7.
-        new Jumper();
-        for (let i = 1; i <= 198; i++) {
-            new Immortal();
-        }
-
-        // orignal setup
-        // new Food();
-        // new Cell();
+        new Food();
+        new Cell();
     },
     phase: () => {
         const cellNumber = population.getNumber("Cell");
         const immortalNumber = population.getNumber("Immortal");
+        if (immortalNumber >= 300) {
+            return 9;
+        }
         if (immortalNumber >= 200) {
             return 8;
         }
@@ -57,6 +55,7 @@ export const population = new Population({
         "Extinction",
         "Takeover",
         "Jumpin' all over",
+        "Keep calm",
     ],
     reproduce: (pos, vel) => {
         const phase = population.phase();
@@ -65,11 +64,14 @@ export const population = new Population({
             new Immortal();
         }
         if (
-            phase >= 8 &&
+            phase == 8 &&
             Math.random() < 0.1 &&
             population.getNumber("Jumper") < 10
         ) {
             new Jumper();
+        }
+        if (phase == 9 && population.getNumber("Meditator") == 0) {
+            new Meditator();
         }
         if (phase <= 6 && population.getNumber("Food") < 4) {
             new Food();

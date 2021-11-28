@@ -5,6 +5,7 @@ import { growUp } from "../features/growUp.js";
 import { rand, randInt } from "../utils.js";
 import { slowDown } from "../features/slowDown.js";
 import { eatJumper } from "../features/eatJumper.js";
+import { removeIfFarOutside } from "../features/removeIfOutside.js";
 
 export class Immortal extends Body {
     constructor(pos, vel) {
@@ -17,12 +18,13 @@ export class Immortal extends Body {
             growUp({ duration: 1, size: 5 }),
             targetClosest("Food"),
             targetClosest("Jumper"),
-            slowDown("Jumper"),
+            slowDown("Jumper", 1.01),
             eatJumper,
             swim({
                 length: randInt(40, 50),
                 amplitude: rand(Math.PI / 10, Math.PI / 8),
             }),
+            removeIfFarOutside,
         ];
     }
 }

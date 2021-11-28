@@ -1,5 +1,6 @@
 import { growUp } from "../features/growUp.js";
 import { jump } from "../features/jump.js";
+import { maxAge } from "../features/maxAge.js";
 import { randInt } from "../utils.js";
 import { Body } from "./Body.js";
 
@@ -13,6 +14,7 @@ export class Jumper extends Body {
         this.features = [
             growUp({ duration: 0.5, size: 10 }),
             jump({ range: 100, wait: randInt(10, 20) }),
+            maxAge(600),
         ];
     }
 }
